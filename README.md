@@ -19,6 +19,12 @@ Uses the [subfiles](https://ctan.org/pkg/subfiles?lang=en) package, so each pape
     | ...
 ```
 
+# Dependencies
+
+```
+pip install -r template/requirements.txt
+```
+
 # Usage
 
 Add new references into the bibliography with just the doi (searches through [https://dx.doi.org/])
