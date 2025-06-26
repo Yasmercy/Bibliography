@@ -1,6 +1,5 @@
 \documentclass{article}
 
-\usepackage{../sty/notes}
 \usepackage{subfiles}
 \usepackage[backend=biber,style=numeric,defernumbers=true]{biblatex}
 
@@ -12,7 +11,7 @@
 }
 
 \title{Annotated Bibliography}
-\author{Ian Chen}
+\author{author}
 \date{}
 
 \begin{document}
@@ -22,27 +21,10 @@
 
 \newpage
 
-\section{Community Detection}
-\subfile{../cluster/park24-11/main}
-\subfile{../cluster/ramavarapu-24-01/main}
-\subfile{../cluster/park24-03/main}
-\subfile{../cluster/poulin19-07/main}
-\subfile{../cluster/yang13-10/main}
-%cluster
-
-\section{Synthetic Network Generation}
-\subfile{../netgen/vule25-02/main}
-%netgen
-
-\section{Scientometrics}
-\subfile{../science/hill25-05/main}
-\subfile{../science/kosmyna25-00/main}
-%science
-
-\section{Other}
-\subfile{../other/thorp25-06/main}
-%other
+\section{default}
+%default
 
 \clearpage
+\printbibliography
 
 \end{document}
