@@ -1,0 +1,45 @@
+\documentclass[../../main/main.tex]{subfiles}
+
+\begin{document}
+
+\subsection*{Defining and evaluating network communities based on ground-truth}
+
+Yang and Lescovec~\cite{yang13-10} describe their metholodology in processing the ground truths in the SNAP database~\cite{lescovec14-06}.
+
+Recall that for community detection algorithms, we often use synthetic networks with ground truth partitions.
+For example, in the LFR software ~\cite{lancichinetti08-00}, the ground truth nodes have different connection probabilities (governed by the mixing parameter).
+
+In empirical networks, we can use metadata to find a gold-standard labeling.
+For social networks (e.g. Youtube), users are nodes, friendships are edges, and user-created groups are communities.
+Despite this, we do not know if there are detectable topological differences between the gold-standard labeling (often by metadata).
+
+The authors study scoring metrics for how ``community-like'' their clustering is.
+For individual clusters, they calculate the density, separability, and connectivity.
+They found that for their networks,
+\begin{enumerate}
+    \item There is a big drop in quality after the top 5000 community (average rank across their metrics)
+    \item Some networks have communities that are highly separable, while others are highly dense (sometimes not both)
+    \item Modularity is inversely proportional to density, separability, and connectivity functions
+    \item Triangle Participation Rate (cohesiveness) and Conductance (separability) are the two metrics to use
+        \begin{enumerate}
+            \item They measure different qualities of communities
+            \item They are the least sensitive
+        \end{enumerate}
+\end{enumerate}
+
+Overall, this paper definitely feels a bit ad-hoc and the details feel like they're lacking.
+I'm not sure why they make a distinction between cluster scoring and cluster goodness.
+This top 5000 community threshold seems arbitrary and not something generalizable to different network sizes.
+Why do they include the ``bad'' scoring functions (e.g. modularity) into their top 5000 ranking, instead of just using TPR and Conductance.
+Is there a better way to weight, than just taking the average?
+
+I read this paper to determine if and how can use these networks to measure accuracy for community detection.
+Reading this, I'm still not sure.
+
+On another note, Justin Luke took a class with Lescovec!
+The software is publicly accessible, packaged and documented~\cite{snap25-06}.
+
+\bibsub
+
+\end{document}
+

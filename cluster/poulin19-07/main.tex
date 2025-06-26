@@ -1,0 +1,38 @@
+\documentclass[../../main/main.tex]{subfiles}
+
+\begin{document}
+
+\subsection*{Ensemble clustering for graphs: comparisons and applications}
+
+Poulin and The\'eberge~\cite{poulin19-07} further evaluate their previously published ensemble clustering method ECG~\cite{poulin18-12}.
+
+They address some well known issues of modularity, including
+\begin{enumerate}
+	\item The resolution limit --- it tends to underfit when there are lots of clusters
+	\item Stability between iterations of Louvain
+\end{enumerate}
+
+They do this by defining a weighting scheme: given multiple partitions, they form weights through co-association,
+$$
+	w_{\mathcal{P}}(u, v) =
+	\begin{cases}
+		w_* + (1 - w_*) \left( \frac{1}{k} \sum_{i=1}^k \mathbf{1}_{(u, v) \in P_{\mathcal{P}}} \right) & \caseif (u, v) \in 2-\text{core of } \G \\
+		w_*                                                                                             & \caseow
+	\end{cases}
+$$
+i.e. counting how many partitions place $u$ and $v$ together.
+On this weighted graph, they then run the Louvain algorithm to obtain a final clustering.
+
+They show very positive results on all grounds, including on a (dubious) evaluation on real networks.
+ECG is better especially on low signal (e.g. LFR graphs with high mixing).
+Moreover, they show applications of their weighting beyond obtaining a partition.
+For example, the kurtosis of the weighting distribution is a good indicator for community structure within a network.
+In addition, this can be used for community search by using the weights to focus on specific seeds.
+
+There are other issues of modularity, such as connectivity and homogeneity of clusters.
+Does ECG improve on these at all?
+
+\bibsub
+
+\end{document}
+

@@ -1,0 +1,349 @@
+@inproceedings{park24-03,
+    author = "Park, Minhyuk and Feng, Daniel Wang and Digra, Siya and Vu-Le,
+              The-Anh and Chacko, George and Warnow, Tandy",
+    editor = "Cherifi, Hocine and Donduran, Murat and Rocha, Luis M. and Cherifi
+              , Chantal and Varol, Onur",
+    title = "Improved Community Detection Using Stochastic Block Models",
+    booktitle = "Complex Networks {\&} Their Applications XIII",
+    year = "2025",
+    publisher = "Springer Nature Switzerland",
+    address = "Cham",
+    pages = "103--114",
+    abstract = "Community detection approaches resolve complex networks into
+                smaller groups (communities) that are expected to be relatively
+                edge-dense and well-connected. The stochastic block model (SBM)
+                is one of several approaches used to uncover community structure
+                in graphs. In this study, we demonstrate that SBM software
+                applied to various real-world and synthetic networks produces
+                poorly-connected to disconnected clusters. We present simple
+                modifications to improve the connectivity of SBM clusters, and
+                show that the modifications improve accuracy using simulated LFR
+                networks.",
+    isbn = "978-3-031-82435-7",
+}
+
+@article{park24-11,
+    doi = {10.1371/journal.pcsy.0000009},
+    author = {Park, Minhyuk AND Tabatabaee, Yasamin AND Ramavarapu, Vikram AND
+              Liu, Baqiao AND Pailodi, Vidya Kamath AND Ramachandran, Rajiv AND
+              Korobskiy, Dmitriy AND Ayres, Fabio AND Chacko, George AND Warnow,
+              Tandy},
+    journal = {PLOS Complex Systems},
+    publisher = {Public Library of Science},
+    title = {Well-connectedness and community detection},
+    year = {2024},
+    month = {11},
+    volume = {1},
+    url = {https://doi.org/10.1371/journal.pcsy.0000009},
+    pages = {1-25},
+    abstract = {Community detection methods help reveal the meso-scale structure
+                of complex networks. Integral to detecting communities is the
+                expectation that communities in a network are edge-dense and
+                “well-connected”. Surprisingly, we find that five different
+                community detection methods–the Leiden algorithm optimizing the
+                Constant Potts Model, the Leiden algorithm optimizing modularity,
+                Infomap, Markov Cluster (MCL), and Iterative k-core
+                (IKC)–identify communities that fail even a mild requirement for
+                well-connectedness. To address this issue, we have developed the
+                Connectivity Modifier (CM), which iteratively removes small edge
+                cuts and re-clusters until communities are well-connected
+                according to a user-specified criterion. We tested CM on
+                real-world networks ranging in size from approximately 35,000 to
+                75,000,000 nodes. Post-processing of the output of community
+                detection methods by CM resulted in a reduction in node coverage.
+                Results on synthetic networks show that the CM algorithm
+                generally maintains or improves accuracy in recovering true
+                communities. This study underscores the importance of network
+                clusterability–the fraction of a network that exhibits community
+                structure–and the need for more models of community structure
+                where networks contain nodes that are not assigned to
+                communities. In summary, we address well-connectedness as an
+                important aspect of clustering and present a scalable open-source
+                tool for well-connected clusters.},
+    number = {3},
+}
+@article{traag19-03,
+    author = "Traag, V. A. and Waltman, L. and van Eck, N. J.",
+    title = "From Louvain to Leiden: guaranteeing well-connected communities",
+    journal = "Scientific Reports",
+    year = "2019",
+    month = mar,
+    day = "26",
+    volume = "9",
+    number = "1",
+    pages = "5233",
+    abstract = "Community detection is often used to understand the structure of
+                large and complex networks. One of the most popular algorithms
+                for uncovering community structure is the so-called Louvain
+                algorithm. We show that this algorithm has a major defect that
+                largely went unnoticed until now: the Louvain algorithm may yield
+                arbitrarily badly connected communities. In the worst case,
+                communities may even be disconnected, especially when running the
+                algorithm iteratively. In our experimental analysis, we observe
+                that up to 25{\%} of the communities are badly connected and up
+                to 16{\%} are disconnected. To address this problem, we introduce
+                the Leiden algorithm. We prove that the Leiden algorithm yields
+                communities that are guaranteed to be connected. In addition, we
+                prove that, when the Leiden algorithm is applied iteratively, it
+                converges to a partition in which all subsets of all communities
+                are locally optimally assigned. Furthermore, by relying on a fast
+                local move approach, the Leiden algorithm runs faster than the
+                Louvain algorithm. We demonstrate the performance of the Leiden
+                algorithm for several benchmark and real-world networks. We find
+                that the Leiden algorithm is faster than the Louvain algorithm
+                and uncovers better partitions, in addition to providing explicit
+                guarantees.",
+    issn = "2045-2322",
+    doi = "10.1038/s41598-019-41695-z",
+    url = "https://doi.org/10.1038/s41598-019-41695-z",
+}
+
+@article{ramavarapu24-01,
+    doi = {10.21105/joss.06073},
+    url = {https://doi.org/10.21105/joss.06073},
+    year = {2024},
+    publisher = {The Open Journal},
+    volume = {9},
+    number = {93},
+    pages = {6073},
+    author = {Vikram Ramavarapu and Fábio Jose Ayres and Minhyuk Park and Vidya
+              Kamath Pailodi and João Alfredo Cardoso Lamy and Tandy Warnow and
+              George Chacko},
+    title = {CM++ - A Meta-method for Well-Connected Community Detection},
+    journal = {Journal of Open Source Software},
+}
+@article{henzinger18-10,
+    author = {Henzinger, Monika and Noe, Alexander and Schulz, Christian and
+              Strash, Darren},
+    title = {Practical Minimum Cut Algorithms},
+    year = {2018},
+    issue_date = {2018},
+    publisher = {Association for Computing Machinery},
+    address = {New York, NY, USA},
+    volume = {23},
+    issn = {1084-6654},
+    url = {https://doi.org/10.1145/3274662},
+    doi = {10.1145/3274662},
+    abstract = {The minimum cut problem for an undirected edge-weighted graph
+                asks us to divide its set of nodes into two blocks while
+                minimizing the weight sum of the cut edges. Here, we introduce a
+                linear-time algorithm to compute near-minimum cuts. Our algorithm
+                is based on cluster contraction using label propagation and
+                Padberg and Rinaldi’s contraction heuristics [SIAM Review, 1991].
+                We give both sequential and shared-memory parallel
+                implementations of our algorithm. Extensive experiments on both
+                real-world and generated instances show that our algorithm finds
+                the optimal cut on nearly all instances significantly faster than
+                other state-of-the-art exact algorithms, and our error rate is
+                lower than that of other heuristic algorithms. In addition, our
+                parallel algorithm runs a factor 7.5\texttimes{} faster on
+                average when using 32 threads. To further speed up computations,
+                we also give a version of our algorithm that performs random edge
+                contractions as preprocessing. This version achieves a lower
+                running time and better parallel scalability at the expense of a
+                higher error rate.},
+    journal = {ACM J. Exp. Algorithmics},
+    month = oct,
+    articleno = {1.8},
+    numpages = {22},
+    keywords = {Algorithm engineering, minimum cut},
+}
+@article{vule25-02,
+    title = {EC-SBM synthetic network generator},
+    volume = {10},
+    ISSN = {2364-8228},
+    url = {http://dx.doi.org/10.1007/s41109-025-00701-2},
+    DOI = {10.1007/s41109-025-00701-2},
+    number = {1},
+    journal = {Applied Network Science},
+    publisher = {Springer Science and Business Media LLC},
+    author = {Vu-Le, The-Anh and Anne, Lahari and Chacko, George and Warnow,
+              Tandy},
+    year = {2025},
+    month = may,
+}
+@article{blondel08-10,
+    doi = {10.1088/1742-5468/2008/10/P10008},
+    url = {https://dx.doi.org/10.1088/1742-5468/2008/10/P10008},
+    year = {2008},
+    month = {oct},
+    publisher = {},
+    volume = {2008},
+    number = {10},
+    pages = {P10008},
+    author = {Blondel, Vincent D and Guillaume, Jean-Loup and Lambiotte, Renaud
+              and Lefebvre, Etienne},
+    title = {Fast unfolding of communities in large networks},
+    journal = {Journal of Statistical Mechanics: Theory and Experiment},
+    abstract = {We propose a simple method to extract the community structure of
+                large networks. Our method is a heuristic method that is based on
+                modularity optimization. It is shown to outperform all other
+                known community detection methods in terms of computation time.
+                Moreover, the quality of the communities detected is very good,
+                as measured by the so-called modularity. This is shown first by
+                identifying language communities in a Belgian mobile phone
+                network of 2 million customers and by analysing a web graph of
+                118 million nodes and more than one billion links. The accuracy
+                of our algorithm is also verified on ad hoc modular networks.},
+}
+@article{blondel24-10,
+    doi = {10.1088/1742-5468/ad6139},
+    url = {https://dx.doi.org/10.1088/1742-5468/ad6139},
+    year = {2024},
+    month = {oct},
+    publisher = {IOP Publishing},
+    volume = {2024},
+    number = {10},
+    pages = {10R001},
+    author = {Blondel, Vincent and Guillaume, Jean-Loup and Lambiotte, Renaud},
+    title = {Fast unfolding of communities in large networks: 15 years later},
+    journal = {Journal of Statistical Mechanics: Theory and Experiment},
+    abstract = {The Louvain method was proposed 15 years ago as a heuristic
+                method for the fast detection of communities in large networks.
+                During this period, it has emerged as one of the most popular
+                methods for community detection: the task of partitioning
+                vertices of a network into dense groups, usually called
+                communities or clusters. Here, after a short introduction to the
+                method, we give an overview of the different generalizations,
+                modifications and improvements that have been proposed in the
+                literature, and also survey the quality functions, beyond
+                modularity, for which it has been implemented. Finally, we
+                conclude with a discussion on the limitations of the method and
+                perspectives for future research.},
+}
+@article{holland83-06,
+    title = {Stochastic blockmodels: First steps},
+    journal = {Social Networks},
+    volume = {5},
+    number = {2},
+    pages = {109-137},
+    year = {1983},
+    issn = {0378-8733},
+    doi = {https://doi.org/10.1016/0378-8733(83)90021-7},
+    url = {https://www.sciencedirect.com/science/article/pii/0378873383900217},
+    author = {Paul W. Holland and Kathryn Blackmond Laskey and Samuel Leinhardt},
+    abstract = {A stochastic model is proposed for social networks in which the
+                actors in a network are partitioned into subgroups called blocks.
+                The model provides a stochastic generalization of the blockmodel.
+                Estimation techniques are developed for the special case of a
+                single relation social network, with blocks specified a priori.
+                An extension of the model allows for tendencies toward
+                reciprocation of ties beyond those explained by the partition.
+                The extended model provides a one degree-of-freedom test of the
+                model. A numerical example from the social network literature is
+                used to illustrate the methods.},
+}
+@article{poulin19-07,
+    title = {Ensemble clustering for graphs: comparisons and applications},
+    volume = {4},
+    ISSN = {2364-8228},
+    url = {http://dx.doi.org/10.1007/s41109-019-0162-z},
+    DOI = {10.1007/s41109-019-0162-z},
+    number = {1},
+    journal = {Applied Network Science},
+    publisher = {Springer Science and Business Media LLC},
+    author = {Poulin, Valérie and Théberge, François},
+    year = {2019},
+    month = {7},
+}
+@article{yang13-10,
+    title = {Defining and evaluating network communities based on ground-truth},
+    volume = {42},
+    ISSN = {0219-3116},
+    url = {http://dx.doi.org/10.1007/s10115-013-0693-z},
+    DOI = {10.1007/s10115-013-0693-z},
+    number = {1},
+    journal = {Knowledge and Information Systems},
+    publisher = {Springer Science and Business Media LLC},
+    author = {Yang, Jaewon and Leskovec, Jure},
+    year = {2013},
+    month = {10},
+    pages = {181–213},
+}
+@article{hill25-05,
+    title = {The pivot penalty in research},
+    ISSN = {1476-4687},
+    url = {http://dx.doi.org/10.1038/s41586-025-09048-1},
+    DOI = {10.1038/s41586-025-09048-1},
+    journal = {Nature},
+    publisher = {Springer Science and Business Media LLC},
+    author = {Hill, Ryan and Yin, Yian and Stein, Carolyn and Wang, Xizhao and
+              Wang, Dashun and Jones, Benjamin F.},
+    year = {2025},
+    month = {5},
+}
+@misc{lescovec14-06,
+    author = {Jure Leskovec and Andrej Krevl},
+    title = {{SNAP Datasets}: {Stanford} Large Network Dataset Collection},
+    howpublished = {\url{http://snap.stanford.edu/data}},
+    month = jun,
+    year = 2014,
+}
+@misc{snap25-06,
+    author = {Stanford Network Analysis Platform (SNAP)},
+    title = {snap},
+    howpublished = {\url{https://github.com/snap-stanford/snap/}},
+    month = jun,
+    year = 2025,
+},
+@article{lancichinetti08-00,
+    doi = {10.48550/ARXIV.0805.4770},
+    url = {https://arxiv.org/abs/0805.4770},
+    author = {Lancichinetti, Andrea and Fortunato, Santo and Radicchi, Filippo},
+    keywords = {Physics and Society (physics.soc-ph), Computational Physics
+                (physics.comp-ph), FOS: Physical sciences, FOS: Physical sciences
+                },
+    title = {Benchmark graphs for testing community detection algorithms},
+    publisher = {arXiv},
+    year = {2008},
+    copyright = {arXiv.org perpetual, non-exclusive license},
+}
+@inbook{poulin18-12,
+    title = {Ensemble Clustering for Graphs},
+    ISBN = {9783030054113},
+    ISSN = {1860-9503},
+    url = {http://dx.doi.org/10.1007/978-3-030-05411-3_19},
+    DOI = {10.1007/978-3-030-05411-3_19},
+    booktitle = {Complex Networks and Their Applications VII},
+    publisher = {Springer International Publishing},
+    author = {Poulin, Valérie and Théberge, François},
+    year = {2018},
+    month = {12},
+    pages = {231–243},
+}
+@misc{kosmyna25-00,
+    doi = {10.48550/ARXIV.2506.08872},
+    url = {https://arxiv.org/abs/2506.08872},
+    author = {Kosmyna, Nataliya and Hauptmann, Eugene and Yuan, Ye Tong and Situ
+              , Jessica and Liao, Xian-Hao and Beresnitzky, Ashly Vivian and
+              Braunstein, Iris and Maes, Pattie},
+    keywords = {Artificial Intelligence (cs.AI), FOS: Computer and information
+                sciences, FOS: Computer and information sciences},
+    title = {Your Brain on ChatGPT: Accumulation of Cognitive Debt when Using an
+             AI Assistant for Essay Writing Task},
+    publisher = {arXiv},
+    year = {2025},
+    copyright = {Creative Commons Attribution Non Commercial Share Alike 4.0
+                 International},
+}
+@article{thorp25-06,
+    title = {Sluggishness and defensiveness enabled an executive order on
+             research integrity},
+    ISSN = {1095-9203},
+    url = {http://dx.doi.org/10.1126/science.adz9553},
+    DOI = {10.1126/science.adz9553},
+    journal = {Science},
+    publisher = {American Association for the Advancement of Science (AAAS)},
+    author = {Thorp, H. Holden},
+    year = {2025},
+    month = {6},
+}
+@misc{kratsios25-05,
+    title = {Reinvigorating america’s scientific enterprise},
+    url = {
+           https://www.whitehouse.gov/briefings-statements/2025/05/remarks-by-director-kratsios-at-the-national-academy-of-sciences/
+           },
+    author = {Kratsios, Michael},
+    year = {2025},
+    month = {5},
+}
