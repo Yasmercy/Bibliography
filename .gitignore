@@ -1,0 +1,6 @@
+*
+!.gitignore
+!**/
+!**/*.tex
+!refs.bib
+!main.pdf
