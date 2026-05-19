@@ -1,0 +1,135 @@
+% WARNING Parsing failed for the following 17 lines.
+
+
+% WARNING Parsing failed for the following 17 lines.
+
+
+% WARNING Parsing failed for the following 17 lines.
+@misc{fang2019survey,
+	doi = {10.48550/ARXIV.1904.12539},
+	url = {https://arxiv.org/abs/1904.12539},
+	author = {Fang, Yixiang and Huang, Xin and Qin, Lu and Zhang, Ying and Zhang, Wenjie and Cheng, Reynold and Lin, Xuemin},
+	keywords = {Databases (cs.DB), FOS: Computer and information sciences, FOS: Computer and information sciences},
+	title = {A Survey of Community Search Over Big Graphs},
+	publisher = {arXiv},
+	year = {2019},
+	copyright = {arXiv.org perpetual, non-exclusive license},
+	keywords = {commsearch},
+	abstract = { With the rapid development of information technologies, various big graphs are prevalent in many real applications (e.g., social media and knowledge bases). An important component of these graphs is the network community. Essentially, a community is a group of vertices which are densely connected internally. Community retrieval can be used in many real applications, such as event organization, friend recommendation, and so on. Consequently, how to efficiently find high-quality communities from big graphs is an important research topic in the era of big data. Recently a large group of research works, called community search, have been proposed. They aim to provide efficient solutions for searching high-quality communities from large networks in real-time. Nevertheless, these works focus on different types of graphs and formulate communities in different manners, and thus it is desirable to have a comprehensive review of these works. In this survey, we conduct a thorough review of existing community search works. Moreover, we analyze and compare the quality of communities under their models, and the performance of different solutions. Furthermore, we point out new research directions. This survey does not only help researchers to have better understanding of existing community search solutions, but also provides practitioners a better judgement on choosing the proper solutions.
+	},
+	annotation = {
+		\textbf{05/18/26}: This is the baseline paper our lab refers to for community search, but more of a reference to index the literature.
+		For each of coreness, truss, connectivity, and clique number as increasingly strict cohesive metrics, it compares the main ideas behind algorithms optimizing for it.
+	},
+}
+
+
+@article{fortunato2007resolution,
+	title = {Resolution limit in community detection},
+	volume = {104},
+	ISSN = {1091-6490},
+	url = {http://dx.doi.org/10.1073/pnas.0605965104},
+	DOI = {10.1073/pnas.0605965104},
+	number = {1},
+	journal = {Proceedings of the National Academy of Sciences},
+	publisher = {Proceedings of the National Academy of Sciences},
+	author = {Fortunato, Santo and Barthélemy, Marc},
+	year = {2007},
+	month = {jan},
+	pages = {36–41},
+	keywords = {commdetect},
+	abstract = {Detecting community structure is fundamental for uncovering the links between structure and function in complex networks and for practical applications in many disciplines such as biology and sociology. A popular method now widely used relies on the optimization of a quantity called modularity, which is a quality index for a partition of a network into communities. We find that modularity optimization may fail to identify modules smaller than a scale which depends on the total size of the network and on the degree of interconnectedness of the modules, even in cases where modules are unambiguously defnied. This finding is confirmed through several examples, both in artificial and in real social, biological, and technological networks, where we show that modularity optimization indeed does not resolve a large number of modules. A check of the modules obtained through modularity optimization is thus necessary, and we provide here key elements for the assessment of the reliability of this community detection method.},
+	annotation = {
+		\textbf{05/18/26}: This paper addresses the $\sqrt{E}$ volume bias of modularity optimization.
+		For two communities of volume $< \sqrt{2E}$, then if they are connected by even one edge, modularity is strictly increased after merging, and we conclude a limit of $\sqrt{2E}$ communities in the optimal modularity solution.
+		This is a short, well-written paper with instructive examples, e.g. ring-of-cliques.
+	},
+}
+
+
+@inproceedings{obrien2014locally,
+	title = {Locally Estimating Core Numbers},
+	url = {http://dx.doi.org/10.1109/ICDM.2014.136},
+	DOI = {10.1109/icdm.2014.136},
+	booktitle = {2014 IEEE International Conference on Data Mining},
+	publisher = {IEEE},
+	author = {O'Brien, Michael P. and Sullivan, Blair D.},
+	year = {2014},
+	month = {dec},
+	pages = {460–469},
+	abstract = {Graphs are a powerful way to model interactions and relationships in data from a wide variety of application domains. In this setting, entities represented by vertices at the 'center' of the graph are often more important than those associated with vertices on the 'fringes'. For example, central nodes tend to be more critical in the spread of information or disease and play an important role in clustering/community formation. Identifying such 'core' vertices has recently received additional attention in the context of network experiments, which analyze the response when a random subset of vertices are exposed to a treatment (e.g. Inoculation, free product samples, etc). Specifically, the likelihood of having many central vertices in any exposure subset can have a significant impact on the experiment. We focus on using k-cores and core numbers to measure the extent to which a vertex is central in a graph. Existing algorithms for computing the core number of a vertex require the entire graph as input, an unrealistic scenario in many real world applications. Moreover, in the context of network experiments, the sub graph induced by the treated vertices is only known in a probabilistic sense. We introduce a new method for estimating the core number based only on the properties of the graph within a region of radius $\delta$ around the vertex, and prove an asymptotic error bound of our estimator on random graphs. Further, we empirically validate the accuracy of our estimator for small values of $\delta$ on a representative corpus of real data sets. Finally, we evaluate the impact of improved local estimation on an open problem in network experimentation posed by Ugander et al.},
+	tldr = {A new method for estimating the core number based only on the properties of the graph within a region of radius $\delta$ around the vertex is introduced, and an asymptotic error bound of the estimator on random graphs is proved.},
+	keywords = {commsearch},
+	annotation = {
+		\textbf{05/18/26}: This paper develops very good theory for neighborhood-based estimation of the core number.
+		Mathematically precise with proofs, but easy to read and good examples/figures.
+		They show empirically that a constant number of steps is a very good approximation, and theoretically it converges to the true coreness.
+	},
+}
+
+
+@article{sarıyüce2016incremental,
+	title = {Incremental k-core decomposition: algorithms and evaluation},
+	volume = {25},
+	ISSN = {0949-877X},
+	url = {http://dx.doi.org/10.1007/s00778-016-0423-8},
+	DOI = {10.1007/s00778-016-0423-8},
+	number = {3},
+	journal = {The VLDB Journal},
+	publisher = {Springer Science and Business Media LLC},
+	author = {Sarıyüce, Ahmet Erdem and Gedik, Buğra and Jacques-Silva, Gabriela and Wu, Kun-Lung and Çatalyürek, Ümit V.},
+	year = {2016},
+	month = {feb},
+	pages = {425–447},
+	abstract = {A k-core of a graph is a maximal connected subgraph in which every vertex is connected to at least k vertices in the subgraph. k-core decomposition is often used in large-scale network analysis, such as community detection, protein function prediction, visualization, and solving NP-hard problems on real networks efficiently, like maximal clique finding. In many real-world applications, networks change over time. As a result, it is essential to develop efficient incremental algorithms for dynamic graph data. In this paper, we propose a suite of incremental k-core decomposition algorithms for dynamic graph data. These algorithms locate a small subgraph that is guaranteed to contain the list of vertices whose maximum k-core values have changed and efficiently process this subgraph to update the k-core decomposition. We present incremental algorithms for both insertion and deletion operations, and propose auxiliary vertex state maintenance techniques that can further accelerate these operations. Our results show a significant reduction in runtime compared to non-incremental alternatives. We illustrate the efficiency of our algorithms on different types of real and synthetic graphs, at varying scales. For a graph of 16 million vertices, we observe relative throughputs reaching a million times, relative to the non-incremental algorithms.},
+	tldr = {This paper proposes a suite of incremental k-core decomposition algorithms for dynamic graph data, and presents incremental algorithms for both insertion and deletion operations, and proposes auxiliary vertex state maintenance techniques that can further accelerate these operations.},
+	annotation = {\textbf{05/18/26}: This paper develops local traversal style algorithms that exactly update the coreness after an edge insertion/deletion in linear time. It does a lot of good pruning, but makes no theoretical progress, as in the worst case, all core numbers can change (e.g. adding an edge to turn path to cycle).},
+}
+
+
+@inproceedings{yang2012defining,
+	series = {KDD ’12},
+	title = {Defining and evaluating network communities based on ground-truth},
+	url = {http://dx.doi.org/10.1145/2350190.2350193},
+	DOI = {10.1145/2350190.2350193},
+	booktitle = {Proceedings of the ACM SIGKDD Workshop on Mining Data Semantics},
+	publisher = {ACM},
+	author = {Yang, Jaewon and Leskovec, Jure},
+	year = {2012},
+	month = {aug},
+	pages = {1–8},
+	collection = {KDD ’12},
+	abstract = {Nodes in real-world networks, such as social, information or technological networks, organize into communities where edges appear with high concentration among the members of the community. Identifying communities in networks has proven to be a challenging task mainly due to a plethora of definitions of a community, intractability of algorithms, issues with evaluation and the lack of a reliable gold-standard ground-truth. We study a set of 230 large social, collaboration and information networks where nodes explicitly define group memberships. We use these groups to define the notion of ground-truth communities. We then propose a methodology which allows us to compare and quantitatively evaluate different definitions of network communities on a large scale. We choose 13 commonly used definitions of network communities and examine their quality, sensitivity and robustness. We show that the 13 definitions naturally group into four classes. We find that two of these definitions, Conductance and Triad-participation-ratio, consistently give the best performance in identifying ground-truth communities. },
+	annotation = {
+		\textbf{05/18/26}: There are three barriers for evaluating accuracy of clustering algorithms on empirical: 1. lack of datasets, 2. lack of reliable ground-truth, and 3. a common definition for what a community is.
+		The authors propose 4 axioms (community goodness) that a good community is, namely it must be separable, dense, cohesive, and have high clustering coefficient.
+		They evaluate 13 scoring functions, finding that modularity tends to be negatively correlated with a good community and suggest joint evaluation using conductance and TPR for robust evaluation.
+		Finally, using these functions, they procure a set of datasets with (somewhat) reliable ground-truth.
+		This paper is OK; takeaway is their procedure of evaluating scoring methods, and the ridiculing of modularity, but the ground-truth they create from them is questionable.
+	},
+	keywords = {commscore},
+}
+
+
+@article{rosvall2008maps,
+	title = {Maps of random walks on complex networks reveal community structure},
+	volume = {105},
+	ISSN = {1091-6490},
+	url = {http://dx.doi.org/10.1073/pnas.0706851105},
+	DOI = {10.1073/pnas.0706851105},
+	number = {4},
+	journal = {Proceedings of the National Academy of Sciences},
+	publisher = {Proceedings of the National Academy of Sciences},
+	author = {Rosvall, Martin and Bergstrom, Carl T.},
+	year = {2008},
+	month = {jan},
+	pages = {1118–1123},
+	abstract = {To comprehend the multipartite organization of large-scale biological and social systems, we introduce an information theoretic approach that reveals community structure in weighted and directed networks. We use the probability flow of random walks on a network as a proxy for information flows in the real system and decompose the network into modules by compressing a description of the probability flow. The result is a map that both simplifies and highlights the regularities in the structure and their relationships. We illustrate the method by making a map of scientific communication as captured in the citation patterns of >6,000 journals. We discover a multicentric organization with fields that vary dramatically in size and degree of integration into the network of science. Along the backbone of the network—including physics, chemistry, molecular biology, and medicine—information flows bidirectionally, but the map reveals a directional pattern of citation from the applied fields to the basic sciences.},
+	tldr = {An information theoretic approach is introduced that reveals community structure in weighted and directed networks of large-scale biological and social systems and reveals a directional pattern of citation from the applied fields to the basic sciences.},
+	keywords = {commdetect},
+	annotation = {
+		\textbf{05/18/26}: Very interesting paper with a distinctive approach to clustering.
+		It defines what it wants to capture (information flow), substitutes a reasonable surrogate (probability flow), and very elegantly describes an optimization function (description length via multi-layer encoding) to capture it.
+		Lots of very instructive diagrams, and overall very nicely written.
+	},
+}

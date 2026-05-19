@@ -1,0 +1,38 @@
+\documentclass{article}
+
+\title{Annotated Bibliography}
+\author{Ian Chen}
+\date{\today}
+
+\usepackage{fullpage}
+\usepackage[backend=biber,url=false,bibstyle=reading,defernumbers=true]{biblatex}
+\addbibresource{refs.bib}
+
+\AtEveryBibitem{%
+  \iffieldundef{title}
+    {\addcontentsline{toc}{subsubsection}{\thefield{entrykey}}} 
+    {\addcontentsline{toc}{subsubsection}{\thefield{title}}}%
+}
+
+\defbibfilter{miscellaneous}{
+  not keyword={commscore} and not keyword={commsearch} and not keyword={commdetect}
+}
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+
+
+\nocite{*}
+
+\clearpage
+\printbibliography[keyword={commsearch}, heading={bibintoc}, title={Community Search}]
+\clearpage
+\printbibliography[keyword={commdetect}, heading={bibintoc}, title={Community Detection}]
+\clearpage
+\printbibliography[keyword={commscore}, heading={bibintoc}, title={Community Scoring}]
+
+
+\end{document}
+

@@ -1,9 +1,0 @@
-*
-!*/
-!**/*.tex
-!**/*.pdf
-!**/refs.bib
-!.gitignore
-!README.md
-!sty
-!template/*
