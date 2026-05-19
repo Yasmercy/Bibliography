@@ -1,10 +1,3 @@
-% WARNING Parsing failed for the following 17 lines.
-
-
-% WARNING Parsing failed for the following 17 lines.
-
-
-% WARNING Parsing failed for the following 17 lines.
 @misc{fang2019survey,
 	doi = {10.48550/ARXIV.1904.12539},
 	url = {https://arxiv.org/abs/1904.12539},
@@ -15,8 +8,7 @@
 	year = {2019},
 	copyright = {arXiv.org perpetual, non-exclusive license},
 	keywords = {commsearch},
-	abstract = { With the rapid development of information technologies, various big graphs are prevalent in many real applications (e.g., social media and knowledge bases). An important component of these graphs is the network community. Essentially, a community is a group of vertices which are densely connected internally. Community retrieval can be used in many real applications, such as event organization, friend recommendation, and so on. Consequently, how to efficiently find high-quality communities from big graphs is an important research topic in the era of big data. Recently a large group of research works, called community search, have been proposed. They aim to provide efficient solutions for searching high-quality communities from large networks in real-time. Nevertheless, these works focus on different types of graphs and formulate communities in different manners, and thus it is desirable to have a comprehensive review of these works. In this survey, we conduct a thorough review of existing community search works. Moreover, we analyze and compare the quality of communities under their models, and the performance of different solutions. Furthermore, we point out new research directions. This survey does not only help researchers to have better understanding of existing community search solutions, but also provides practitioners a better judgement on choosing the proper solutions.
-	},
+	abstract = { With the rapid development of information technologies, various big graphs are prevalent in many real applications (e.g., social media and knowledge bases). An important component of these graphs is the network community. Essentially, a community is a group of vertices which are densely connected internally. Community retrieval can be used in many real applications, such as event organization, friend recommendation, and so on. Consequently, how to efficiently find high-quality communities from big graphs is an important research topic in the era of big data. Recently a large group of research works, called community search, have been proposed. They aim to provide efficient solutions for searching high-quality communities from large networks in real-time. Nevertheless, these works focus on different types of graphs and formulate communities in different manners, and thus it is desirable to have a comprehensive review of these works. In this survey, we conduct a thorough review of existing community search works. Moreover, we analyze and compare the quality of communities under their models, and the performance of different solutions. Furthermore, we point out new research directions. This survey does not only help researchers to have better understanding of existing community search solutions, but also provides practitioners a better judgement on choosing the proper solutions. },
 	annotation = {
 		\textbf{05/18/26}: This is the baseline paper our lab refers to for community search, but more of a reference to index the literature.
 		For each of coreness, truss, connectivity, and clique number as increasingly strict cohesive metrics, it compares the main ideas behind algorithms optimizing for it.
@@ -124,7 +116,7 @@
 	year = {2008},
 	month = {jan},
 	pages = {1118–1123},
-	abstract = {To comprehend the multipartite organization of large-scale biological and social systems, we introduce an information theoretic approach that reveals community structure in weighted and directed networks. We use the probability flow of random walks on a network as a proxy for information flows in the real system and decompose the network into modules by compressing a description of the probability flow. The result is a map that both simplifies and highlights the regularities in the structure and their relationships. We illustrate the method by making a map of scientific communication as captured in the citation patterns of >6,000 journals. We discover a multicentric organization with fields that vary dramatically in size and degree of integration into the network of science. Along the backbone of the network—including physics, chemistry, molecular biology, and medicine—information flows bidirectionally, but the map reveals a directional pattern of citation from the applied fields to the basic sciences.},
+	abstract = {To comprehend the multipartite organization of large-scale biological and social systems, we introduce an information theoretic approach that reveals community structure in weighted and directed networks. We use the probability flow of random walks on a network as a proxy for information flows in the real system and decompose the network into modules by compressing a description of the probability flow. The result is a map that both simplifies and highlights the regularities in the structure and their relationships. We illustrate the method by making a map of scientific communication as captured in the citation patterns of $>$6,000 journals. We discover a multicentric organization with fields that vary dramatically in size and degree of integration into the network of science. Along the backbone of the network—including physics, chemistry, molecular biology, and medicine—information flows bidirectionally, but the map reveals a directional pattern of citation from the applied fields to the basic sciences.},
 	tldr = {An information theoretic approach is introduced that reveals community structure in weighted and directed networks of large-scale biological and social systems and reveals a directional pattern of citation from the applied fields to the basic sciences.},
 	keywords = {commdetect},
 	annotation = {
@@ -132,4 +124,56 @@
 		It defines what it wants to capture (information flow), substitutes a reasonable surrogate (probability flow), and very elegantly describes an optimization function (description length via multi-layer encoding) to capture it.
 		Lots of very instructive diagrams, and overall very nicely written.
 	},
+}
+
+
+@article{vu-le2025ecsbm,
+	title = {EC-SBM synthetic network generator},
+	volume = {10},
+	ISSN = {2364-8228},
+	url = {http://dx.doi.org/10.1007/s41109-025-00701-2},
+	DOI = {10.1007/s41109-025-00701-2},
+	number = {1},
+	journal = {Applied Network Science},
+	publisher = {Springer Science and Business Media LLC},
+	author = {Vu-Le, The-Anh and Anne, Lahari and Chacko, George and Warnow, Tandy},
+	year = {2025},
+	month = {may},
+	abstract = {Generating high-quality synthetic networks with realistic community structure is vital to effectively evaluate community detection algorithms. In this study, we propose a new synthetic network generator called the Edge-Connected Stochastic Block Model (EC-SBM). The goal of EC-SBM is to take a given clustered real-world network and produce a synthetic network that resembles the clustered real-world network with respect to both network and community-specific criteria. In particular, we focus on simulating the internal edge connectivity of the clusters in the reference clustered network. Our performance study on large real-world networks shows that EC-SBM is generally more accurate with respect to network and community criteria than currently used approaches for this problem. Furthermore, we demonstrate that EC-SBM can complete analyses on several real-world networks with millions of nodes.},
+	tldr = {This study proposes a new synthetic network generator called the Edge-Connected Stochastic Block Model (EC-SBM), which aims to take a given clustered real-world network and produce a synthetic network that resembles the clustered real-world network with respect to both network and community-specific criteria.},
+	keywords = {commscore},
+	annotation = {
+		\textbf{05/19/26}: A high quality network generator should have similar statistics to empirical networks, and be able to scale to large networks.
+			In particular, they want to recover community structure, such as clustering coefficient and \textcolor{blue}{connectivity of communities}.
+			To ensure connectivity, they overlay a $k$-edge connected spanning subnetwork with an SBM network, with final step of degree correction, finding the best parameters from a SBM+WCC clustering.
+			They perform the best on all metrics (compare to RECCS, SBM, ...) except connectivity, with RECCS being a bit better.
+			This paper is quite long and has a comprehensive set of experiments; I wonder what the network community profile looks like.
+			Seems okay to use as a blackbox and not think about its mechanics.
+	},
+}
+
+
+@article{traag2011narrow,
+	title = {Narrow scope for resolution-limit-free community detection},
+	volume = {84},
+	ISSN = {1550-2376},
+	url = {http://dx.doi.org/10.1103/PhysRevE.84.016114},
+	DOI = {10.1103/physreve.84.016114},
+	number = {1},
+	journal = {Physical Review E},
+	publisher = {American Physical Society (APS)},
+	author = {Traag, V. A. and Van Dooren, P. and Nesterov, Y.},
+	year = {2011},
+	month = {jul},
+	abstract = {Detecting communities in large networks has drawn much attention over the years. While modularity remains one of the more popular methods of community detection, the so-called resolution limit remains a significant drawback. To overcome this issue, it was recently suggested that instead of comparing the network to a random null model, as is done in modularity, it should be compared to a constant factor. However, it is unclear what is meant exactly by "resolution-limit-free," that is, not suffering from the resolution limit. Furthermore, the question remains what other methods could be classified as resolution-limit-free. In this paper we suggest a rigorous definition and derive some basic properties of resolution-limit-free methods. More importantly, we are able to prove exactly which class of community detection methods are resolution-limit-free. Furthermore, we analyze which methods are not resolution-limit-free, suggesting there is only a limited scope for resolution-limit-free community detection methods. Finally, we provide such a natural formulation, and show it performs superbly.},
+	tldr = {A rigorous definition is suggested and some basic properties of resolution-limit-free methods are derived, able to prove exactly which class of community detection methods are resolution- limit-free, and which methods are not.},
+	keywords = {commdetect},
+	annotation = {
+		\textbf{05/19/26}: If a resolution-limit free algorithm produces a clustering $\mathcal{C} = \{C_i\}$, then it should produce the same clustering on any induced subgraph of a union of clusters.
+		Traag et al. describes \emph{clustering} quality objectives, and show that \emph{only} their proposed objective CPM, or something very similar to it, can be resolution limit free.
+		Finally, they perform experiments showing good empirical performance.
+		This paper seems OK; I don't like the problem of having to choose the right resolutin parameter.
+		Good theory, and much much better than modularity.
+		Some more examples and intuition behind CPM would be good, but is provided in the Leiden suppl.
+	}
 }

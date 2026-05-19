@@ -8,6 +8,10 @@
 \usepackage[backend=biber,url=false,bibstyle=reading,defernumbers=true]{biblatex}
 \addbibresource{refs.bib}
 
+\usepackage{hyperref}
+\usepackage{bookmark}
+\hypersetup{ linktoc=all } 
+
 \AtEveryBibitem{%
   \iffieldundef{title}
     {\addcontentsline{toc}{subsubsection}{\thefield{entrykey}}} 
@@ -20,7 +24,6 @@
 
 \begin{document}
 \maketitle
-
 \tableofcontents
 
 
@@ -31,7 +34,7 @@
 \clearpage
 \printbibliography[keyword={commdetect}, heading={bibintoc}, title={Community Detection}]
 \clearpage
-\printbibliography[keyword={commscore}, heading={bibintoc}, title={Community Scoring}]
+\printbibliography[keyword={commscore}, heading={bibintoc}, title={Community Evaluation}]
 
 
 \end{document}
