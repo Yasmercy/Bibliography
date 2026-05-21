@@ -8,24 +8,29 @@
 \usepackage[backend=biber,url=false,bibstyle=reading,defernumbers=true]{biblatex}
 \addbibresource{refs.bib}
 
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\set}[1]{\left\{ #1 \right\}}
+\usepackage{xcolor}
 \usepackage{hyperref}
-\usepackage{bookmark}
+\usepackage[numbered]{bookmark}
 \hypersetup{ linktoc=all } 
 
 \AtEveryBibitem{%
+ \phantomsection
   \iffieldundef{title}
     {\addcontentsline{toc}{subsubsection}{\thefield{entrykey}}} 
     {\addcontentsline{toc}{subsubsection}{\thefield{title}}}%
 }
 
-\defbibfilter{miscellaneous}{
-  not keyword={commscore} and not keyword={commsearch} and not keyword={commdetect}
+\defbibfilter{misc}{
+  not keyword={commsearch}
+  and not keyword={commdetect}
+  and not keyword={commscore}
 }
 
 \begin{document}
 \maketitle
 \tableofcontents
-
 
 \nocite{*}
 
@@ -35,7 +40,10 @@
 \printbibliography[keyword={commdetect}, heading={bibintoc}, title={Community Detection}]
 \clearpage
 \printbibliography[keyword={commscore}, heading={bibintoc}, title={Community Evaluation}]
-
+\clearpage
+\printbibliography[keyword={reread}, heading={bibintoc}, title={Marked for Re-Reading}]
+\clearpage
+\printbibliography[filter={misc}, heading={bibintoc}, title={Miscellaneous}]
 
 \end{document}
 

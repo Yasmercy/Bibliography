@@ -1,21 +1,3 @@
-@misc{fang2019survey,
-	doi = {10.48550/ARXIV.1904.12539},
-	url = {https://arxiv.org/abs/1904.12539},
-	author = {Fang, Yixiang and Huang, Xin and Qin, Lu and Zhang, Ying and Zhang, Wenjie and Cheng, Reynold and Lin, Xuemin},
-	keywords = {Databases (cs.DB), FOS: Computer and information sciences, FOS: Computer and information sciences},
-	title = {A Survey of Community Search Over Big Graphs},
-	publisher = {arXiv},
-	year = {2019},
-	copyright = {arXiv.org perpetual, non-exclusive license},
-	keywords = {commsearch},
-	abstract = { With the rapid development of information technologies, various big graphs are prevalent in many real applications (e.g., social media and knowledge bases). An important component of these graphs is the network community. Essentially, a community is a group of vertices which are densely connected internally. Community retrieval can be used in many real applications, such as event organization, friend recommendation, and so on. Consequently, how to efficiently find high-quality communities from big graphs is an important research topic in the era of big data. Recently a large group of research works, called community search, have been proposed. They aim to provide efficient solutions for searching high-quality communities from large networks in real-time. Nevertheless, these works focus on different types of graphs and formulate communities in different manners, and thus it is desirable to have a comprehensive review of these works. In this survey, we conduct a thorough review of existing community search works. Moreover, we analyze and compare the quality of communities under their models, and the performance of different solutions. Furthermore, we point out new research directions. This survey does not only help researchers to have better understanding of existing community search solutions, but also provides practitioners a better judgement on choosing the proper solutions. },
-	annotation = {
-		\textbf{05/18/26}: This is the baseline paper our lab refers to for community search, but more of a reference to index the literature.
-		For each of coreness, truss, connectivity, and clique number as increasingly strict cohesive metrics, it compares the main ideas behind algorithms optimizing for it.
-	},
-}
-
-
 @article{fortunato2007resolution,
 	title = {Resolution limit in community detection},
 	volume = {104},
@@ -75,6 +57,7 @@
 	pages = {425–447},
 	abstract = {A k-core of a graph is a maximal connected subgraph in which every vertex is connected to at least k vertices in the subgraph. k-core decomposition is often used in large-scale network analysis, such as community detection, protein function prediction, visualization, and solving NP-hard problems on real networks efficiently, like maximal clique finding. In many real-world applications, networks change over time. As a result, it is essential to develop efficient incremental algorithms for dynamic graph data. In this paper, we propose a suite of incremental k-core decomposition algorithms for dynamic graph data. These algorithms locate a small subgraph that is guaranteed to contain the list of vertices whose maximum k-core values have changed and efficiently process this subgraph to update the k-core decomposition. We present incremental algorithms for both insertion and deletion operations, and propose auxiliary vertex state maintenance techniques that can further accelerate these operations. Our results show a significant reduction in runtime compared to non-incremental alternatives. We illustrate the efficiency of our algorithms on different types of real and synthetic graphs, at varying scales. For a graph of 16 million vertices, we observe relative throughputs reaching a million times, relative to the non-incremental algorithms.},
 	tldr = {This paper proposes a suite of incremental k-core decomposition algorithms for dynamic graph data, and presents incremental algorithms for both insertion and deletion operations, and proposes auxiliary vertex state maintenance techniques that can further accelerate these operations.},
+	keywords = {commsearch},
 	annotation = {\textbf{05/18/26}: This paper develops local traversal style algorithms that exactly update the coreness after an edge insertion/deletion in linear time. It does a lot of good pruning, but makes no theoretical progress, as in the worst case, all core numbers can change (e.g. adding an edge to turn path to cycle).},
 }
 
@@ -93,6 +76,14 @@
 	collection = {KDD ’12},
 	abstract = {Nodes in real-world networks, such as social, information or technological networks, organize into communities where edges appear with high concentration among the members of the community. Identifying communities in networks has proven to be a challenging task mainly due to a plethora of definitions of a community, intractability of algorithms, issues with evaluation and the lack of a reliable gold-standard ground-truth. We study a set of 230 large social, collaboration and information networks where nodes explicitly define group memberships. We use these groups to define the notion of ground-truth communities. We then propose a methodology which allows us to compare and quantitatively evaluate different definitions of network communities on a large scale. We choose 13 commonly used definitions of network communities and examine their quality, sensitivity and robustness. We show that the 13 definitions naturally group into four classes. We find that two of these definitions, Conductance and Triad-participation-ratio, consistently give the best performance in identifying ground-truth communities. },
 	annotation = {
+		\textbf{05/21/26}: This paper allows for overlapping clusters, as they are scored individually, and split by components.
+		Distinction between goodness and scoring is still a bit confusing -- whats wrong with using goodness as a scoring criterion? Also the cohesiveness formula is a bit strange, but similar to NCP, and perhaps densest subgraph.
+		The clustering coefficient is defined as $g(S) = \frac{1}{\abs{S}} \sum_{v \in S} \frac{2 \abs{E(N(v))}}{\abs{N(v)} \cdot (\abs{N(v)} - 1)}$, it and density are \textcolor{red}{similar to tpr}.
+		Cohesiveness is defined as maximum subgraph conductance, it and separability are \textcolor{red}{similar to conductance}.
+		Desirable traits are stable under small perturbations, but sharp increase with large perturbation --- evaluation familiar to Fisher information (more sensitive is more information).
+		6 distinct sources of networks (225/230 of them are from same platform).
+		\emph{Thought experiment: suppose clustering is inaccurate. What does this paper tell us?}
+			We don't know the node coverage.
 		\textbf{05/18/26}: There are three barriers for evaluating accuracy of clustering algorithms on empirical: 1. lack of datasets, 2. lack of reliable ground-truth, and 3. a common definition for what a community is.
 		The authors propose 4 axioms (community goodness) that a good community is, namely it must be separable, dense, cohesive, and have high clustering coefficient.
 		They evaluate 13 scoring functions, finding that modularity tends to be negatively correlated with a good community and suggest joint evaluation using conductance and TPR for robust evaluation.
@@ -175,5 +166,410 @@
 		This paper seems OK; I don't like the problem of having to choose the right resolutin parameter.
 		Good theory, and much much better than modularity.
 		Some more examples and intuition behind CPM would be good, but is provided in the Leiden suppl.
-	}
+	},
+}
+
+
+@article{wen2019io,
+	title = {I/O Efficient Core Graph Decomposition: Application to Degeneracy Ordering},
+	volume = {31},
+	ISSN = {2326-3865},
+	url = {http://dx.doi.org/10.1109/TKDE.2018.2833070},
+	DOI = {10.1109/tkde.2018.2833070},
+	number = {1},
+	journal = {IEEE Transactions on Knowledge and Data Engineering},
+	publisher = {Institute of Electrical and Electronics Engineers (IEEE)},
+	author = {Wen, Dong and Qin, Lu and Zhang, Ying and Lin, Xuemin and Yu, Jeffrey Xu},
+	year = {2019},
+	month = {jan},
+	pages = {75–90},
+	keywords = {commsearch},
+	abstract = {Core decomposition is a fundamental graph problem with a large number of applications. Most existing approaches for core decomposition assume that the graph is kept in memory of a machine. Nevertheless, many real-world graphs are too big to reside in memory. In this paper, we study I/O efficient core decomposition following a semi-external model, which only allows node information to be loaded in memory. We propose a semi-external algorithm and an optimized algorithm for I/O efficient core decomposition. To handle dynamic graph updates, we firstly show that our algorithm can be naturally extended to handle edge deletion. Then, we propose an I/O efficient core maintenance algorithm to handle edge insertion, and an improved algorithm to further reduce I/O and CPU cost. In addition, based on our core decomposition algorithms, we further propose an I/O efficient semi-external algorithm for degeneracy ordering, which is an important graph problem that is highly related to core decomposition. We also consider how to maintain the degeneracy order. We conduct extensive experiments on 12 real large graphs. Our optimal core decomposition algorithm significantly outperforms the existing I/O efficient algorithm in terms of both processing time and memory consumption. They are very scalable to handle web-scale graphs. As an example, we are the first to handle a web graph with 978.5 million nodes and 42.6 billion edges using less than 4.2 GB memory. We also show that our proposed algorithms for degeneracy order computation and maintenance can handle big graphs efficiently with small memory overhead.},
+	annotation = {
+		\textbf{05/19/26}: Propagates an upper-bound for the coreness, a function of just a node's neighbors.
+		Hence, with graph partitioning, we can scale $k$-core estimation to just use $O(n)$ space.
+		The notation and writing is a bit clunky, but is overall pretty good work.
+	},
+}
+
+
+@inproceedings{leskovec2010empirical,
+	series = {WWW ’10},
+	title = {Empirical comparison of algorithms for network community detection},
+	url = {http://dx.doi.org/10.1145/1772690.1772755},
+	DOI = {10.1145/1772690.1772755},
+	booktitle = {Proceedings of the 19th international conference on World wide web},
+	publisher = {ACM},
+	author = {Leskovec, Jure and Lang, Kevin J. and Mahoney, Michael},
+	year = {2010},
+	month = {apr},
+	pages = {631–640},
+	collection = {WWW ’10},
+	abstract = {Detecting clusters or communities in large real-world graphs such as large social or information networks is a problem of considerable interest. In practice, one typically chooses an objective function that captures the intuition of a network cluster as set of nodes with better internal connectivity than external connectivity, and then one applies approximation algorithms or heuristics to extract sets of nodes that are related to the objective function and that "look like" good communities for the application of interest.
+ In this paper, we explore a range of network community detection methods in order to compare them and to understand their relative performance and the systematic biases in the clusters they identify. We evaluate several common objective functions that are used to formalize the notion of a network community, and we examine several different classes of approximation algorithms that aim to optimize such objective functions. In addition, rather than simply fixing an objective and asking for an approximation to the best cluster of any size, we consider a size-resolved version of the optimization problem. Considering community quality as a function of its size provides a much finer lens with which to examine community detection algorithms, since objective functions and approximation algorithms often have non-obvious size-dependent behavior.},
+	tldr = {Considering community quality as a function of its size provides a much finer lens with which to examine community detection algorithms, since objective functions and approximation algorithms often have non-obvious size-dependent behavior.},
+	keywords = {commscore},
+	annotation = {
+		\textbf{05/21/26}: This paper is closely related to the evaluation in \textcite{yang2012defining}.
+		Using the same objective functions, they evaluate various clustering algorithms on.
+		This paper also considers \textcolor{blue}{size resolved cluster quality}, i.e. the NCP, typically a V shape on log-log scales.
+		This paper gives another set of examples for \emph{discriminative} qualities (bias towards certain types of clusters), and inductive bias of algorithms (e.g. separability vs compactness, even for same objective).
+		This paper is okay; its a good step towards bridging theory and practice, but applied to flow/spectral algorithms which I don't know much about.
+	},
+}
+
+
+@article{watts1998collective,
+	title = {Collective dynamics of ‘small-world’ networks},
+	volume = {393},
+	ISSN = {1476-4687},
+	url = {http://dx.doi.org/10.1038/30918},
+	DOI = {10.1038/30918},
+	number = {6684},
+	journal = {Nature},
+	publisher = {Springer Science and Business Media LLC},
+	author = {Watts, Duncan J. and Strogatz, Steven H.},
+	year = {1998},
+	month = {jun},
+	pages = {440–442},
+	tldr = {Simple models of networks that can be tuned through this middle ground: regular networks ‘rewired’ to introduce increasing amounts of disorder are explored, finding that these systems can be highly clustered, like regular lattices, yet have small characteristic path lengths, like random graphs.},
+	annotation = {
+	\textbf{05/21/26}: This short article defines the clustering coefficient (average over vertices of edge density in neighborhoods) and the characteristic time (average of APSP matrix).
+	This invents the notion of small-world networks and proposes a (parameterized) random process that can describe the behavior of these stats.
+	They use this model to investigate functional traits, such as disease spread.
+	Apparently this model is very different from previous models -- second look would be good.
+	},
+	abstract = {Networks of coupled dynamical systems have been used to model biological oscillators, Josephson junction arrays, excitable media, neural networks, spatial games, genetic control networks and many other self-organizing systems. Ordinarily, the connection topology is assumed to be either completely regular or completely random. But many biological, technological and social networks lie somewhere between these two extremes. Here we explore simple models of networks that can be tuned through this middle ground: regular networks ‘rewired’ to introduce increasing amounts of disorder. We find that these systems can be highly clustered, like regular lattices, yet have small characteristic path lengths, like random graphs. We call them ‘small-world’ networks, by analogy with the small-world phenomenon (popularly known as six degrees of separation). The neural network of the worm Caenorhabditis elegans, the power grid of the western United States, and the collaboration graph of film actors are shown to be small-world networks. Models of dynamical systems with small-world coupling display enhanced signal-propagation speed, computational power, and synchronizability. In particular, infectious diseases spread more easily in small-world networks than in regular lattices. },
+	keywords = {reread},
+}
+
+
+@article{li2020efficient,
+	title = {Efficient progressive minimum k-core search},
+	author = {Li, Conggai and Zhang, Fan and Zhang, Ying and Qin, Lu and Zhang, Wenjie and Lin, Xuemin},
+	journal = {Proceedings of the VLDB Endowment},
+	year = {2020},
+	publisher = {VLDB Endowment},
+	abstract = {As one of the most representative cohesive subgraph models, k-core model has recently received significant attention in the literature. In this paper, we investigate the problem of the minimum k-core search: given a graph G, an integer k and a set of query vertices $Q = \set{q}$, we aim to find the smallest k-core subgraph containing every query vertex $q \in Q$. It has been shown that this problem is NP-hard with a huge search space, and it is very challenging to find the optimal solution. There are several heuristic algorithms for this problem, but they rely on simple scoring functions and there is no guarantee as to the size of the resulting subgraph, compared with the optimal solution. Our empirical study also indicates that the size of their resulting subgraphs may be large in practice. In this paper, we develop an effective and efficient progressive algorithm, namely PSA, to provide a good trade-of fbetween the quality of the result and the search time. Novel lower and upper bound techniques for the minimum k-core search are designed. Our extensive experiments on 12 real-life graphs demonstrate the effectiveness and efficiency of the new techniques. },
+	keywords = {commsearch},
+	annotation = {
+	\textbf{05/21/26}: Instead of addressing the theoretically solved \emph{maximum} $k$-core search, this paper focuses on approximating (as is NP-Hard) the smallest community that has the $k$-core property (for $k$ an argument to the method).
+		Previous works uses an expansion heuristic to add nodes.
+		This paper describes a lot of theoretical structural results (that I have not read in detail), and describes an algorithm with an approximation ratio $c$ (user-specified), and also for query sets.
+		It does a lot better than previous methods, and scales to graphs with billions of edges in minutes ($k$=10) (so this is a \textcolor{blue}{different} problem than the one in the survey \textcite{fang2019survey}.
+	},
+}
+
+
+@inproceedings{huang2017community,
+	title = {Community Search over Big Graphs: Models, Algorithms, and Opportunities},
+	url = {http://dx.doi.org/10.1109/ICDE.2017.211},
+	DOI = {10.1109/icde.2017.211},
+	booktitle = {2017 IEEE 33rd International Conference on Data Engineering (ICDE)},
+	publisher = {IEEE},
+	author = {Huang, Xin and Lakshmanan, Laks V.S. and Xu, Jianliang},
+	year = {2017},
+	month = {apr},
+	pages = {1451–1454},
+	keywords = {commsearch},
+	annotation = {
+		\textbf{05/21/26}: Short list of applications and problems in community search.
+		Treat this similar to \textcite{fang2019survey}.
+	},
+}
+
+
+@article{fang2019survey,
+	title = {A survey of community search over big graphs},
+	volume = {29},
+	ISSN = {0949-877X},
+	url = {http://dx.doi.org/10.1007/s00778-019-00556-x},
+	DOI = {10.1007/s00778-019-00556-x},
+	number = {1},
+	journal = {The VLDB Journal},
+	publisher = {Springer Science and Business Media LLC},
+	author = {Fang, Yixiang and Huang, Xin and Qin, Lu and Zhang, Ying and Zhang, Wenjie and Cheng, Reynold and Lin, Xuemin},
+	year = {2019},
+	month = {jul},
+	pages = {353–392},
+	abstract = {With the rapid development of information technologies, various big graphs are prevalent in many real applications (e.g., social media and knowledge bases). An important component of these graphs is the network community. Essentially, a community is a group of vertices which are densely connected internally. Community retrieval can be used in many real applications, such as event organization, friend recommendation, and so on. Consequently, how to efficiently find high-quality communities from big graphs is an important research topic in the era of big data. Recently, a large group of research works, called community search, have been proposed. They aim to provide effciient solutions for searching high-quality communities from large networks in real time. Nevertheless, these works focus on different types of graphs and formulate communities in different manners, and thus, it is desirable to have a comprehensive review of these works. In this survey, we conduct a thorough review of existing community search works. Moreover, we analyze and compare the quality of communities under their models, and the performance of different solutions. Furthermore, we point out new research directions. This survey does not only help researchers to have better understanding of existing community search solutions, but also provides practitioners a better judgment on choosing the proper solutions. },
+	keywords = {commsearch},
+	annotation = {
+		\textbf{05/21/26}: This is the paper we always start from for community search, with a pretty comprehensive description of algorithms and problems, and definitions.
+		Good as a reference.
+	},
+}
+
+
+@inproceedings{sozio2010communitysearch,
+	series = {KDD ’10},
+	title = {The community-search problem and how to plan a successful cocktail party},
+	url = {http://dx.doi.org/10.1145/1835804.1835923},
+	DOI = {10.1145/1835804.1835923},
+	booktitle = {Proceedings of the 16th ACM SIGKDD international conference on Knowledge discovery and data mining},
+	publisher = {ACM},
+	author = {Sozio, Mauro and Gionis, Aristides},
+	year = {2010},
+	month = {jul},
+	pages = {939–948},
+	collection = {KDD ’10},
+	tldr = {This paper studies a query-dependent variant of the community-detection problem, which it is called thecommunity-search problem: given a graph G, and a set of query nodes in the graph, it is sought to find a subgraph of G that contains the query nodes and it is densely connected, and develops an optimum greedy algorithm for this measure.},
+	abstract = { A lot of research in graph mining has been devoted in the dis-covery of communities. Most of the work has focused in thescenario where communities need to be discovered with onlyreference to the input graph. However, for many interest-ing applications one is interested in ﬁnding the communityformed by a given set of nodes. In this paper we study aquery-dependent variant of the community-detection prob-lem, which we call the community-search problem: given agraph G, and a set of query nodes in the graph, we seek toﬁnd a subgraph of G that contains the query nodes and itis densely connected.We motivate a measure of density based on minimum de-gree and distance constraints, and we develop an optimumgreedy algorithm for this measure. We proceed by charac-terizing a class of monotone constraints and we generalizeour algorithm to compute optimum solutions satisfying anyset of monotone constraints. Finally we modify the greedyalgorithm and we present two heuristic algorithms that ﬁndcommunities of size no greater than a speciﬁed upper bound.Our experimental evaluation on real datasets demonstratesthe eﬃciency of the proposed algorithms and the quality ofthe solutions we obtain },
+	keywords = {commsearch, reread},
+	annotation = {
+	\textbf{05/21/26}:
+		This is the original paper for community search. The problem is to find the maximium score, connected (\textcolor{blue}{not necessarily the largest size community}).
+		They also often add a distance constraint.
+		Describes the Local and Global search problem, and an exact greedy algorithm that optimizes a small family of objectives.
+	},
+}
+
+
+@article{li2015influential,
+	title = {Influential community search in large networks},
+	volume = {8},
+	ISSN = {2150-8097},
+	url = {http://dx.doi.org/10.14778/2735479.2735484},
+	DOI = {10.14778/2735479.2735484},
+	number = {5},
+	journal = {Proceedings of the VLDB Endowment},
+	publisher = {Association for Computing Machinery (ACM)},
+	author = {Li, Rong-Hua and Qin, Lu and Yu, Jeffrey Xu and Mao, Rui},
+	year = {2015},
+	month = {jan},
+	pages = {509–520},
+	tldr = {This paper introduces a novel community model called k-influential community based on the concept of k-core, which can capture the influence of a community and proposes a linear-time online search algorithm to find the top-r k-Influential communities in a network.},
+	abstract = {Community search is a problem of finding densely connected subgraphs that satisfy the query conditions in a network, which has attracted much attention in recent years. However, all the previous studies on community search do not consider the influence of a community. In this paper, we introduce a novel community model called k-influential community based on the concept of k-core, which can capture the influence of a community. Based on the new community model, we propose a linear-time online search algorithm to find the top-r k-influential communities in a network. To further speed up the influential community search algorithm, we devise a linear-space index structure which supports efficient search of the top-r k-influential communities in optimal time. We also propose an efficient algorithm to maintain the index when the network is frequently updated. We conduct extensive experiments on 7 real-world large networks, and the results demonstrate the efficiency and effectiveness of the proposed methods.},
+	keywords = {commsearch},
+	annotation = {
+	\textbf{05/21/26}:
+		For graphs with node weights (typically centrality), this paper describes $k$-influence as the (not necessarily maximal) $k$-core subgraph that maximizes the minimum weight, and shows that greedy peeling is optimal.
+		They then also describe ShellStruct (under a different name).
+	},
+}
+
+
+@article{barbieri2015efficient,
+	title = {Efficient and effective community search},
+	volume = {29},
+	ISSN = {1573-756X},
+	url = {http://dx.doi.org/10.1007/s10618-015-0422-1},
+	DOI = {10.1007/s10618-015-0422-1},
+	number = {5},
+	journal = {Data Mining and Knowledge Discovery},
+	publisher = {Springer Science and Business Media LLC},
+	author = {Barbieri, Nicola and Bonchi, Francesco and Galimberti, Edoardo and Gullo, Francesco},
+	year = {2015},
+	month = {jun},
+	pages = {1406–1433},
+	tldr = {This work proposes a novel method that is in general more efficient and effective—one/two orders of magnitude on average, it can handle multiple query vertices, it yields optimal communities, and it is parameter-free.},
+	abstract = {Community search is the problem of finding a good community for a given set of query vertices. One of the most studied formulations of community search asks for a connected subgraph that contains all query vertices and maximizes the minimum degree. All existing approaches to min-degree-based community search suffer from limitations concerning efficiency, as they need to visit (large part of) the whole input graph, as well as accuracy, as they output communities quite large and not really cohesive. Moreover, some existing methods lack generality: they handle only single-vertex queries, find communities that are not optimal in terms of minimum degree, and/or require input parameters. In this work we advance the state of the art on community search by proposing a novel method that overcomes all these limitations: it is in general more efficient and effective—one/two orders of magnitude on average, it can handle multiple query vertices, it yields optimal communities, and it is parameter-free. These properties are confirmed by an extensive experimental analysis performed on various real-world graphs.},
+	keywords = {commsearch},
+	annotation = {
+	\textbf{05/21/26}: $k$-core community search.
+	Efficient means runtime; local search is desired. Effective means that we want to find small clusters.
+	Seems to supercede \textcite{cui2014local}.
+	Addressing efficiency, they propose ShellStruct (which finds maximal $k$-core).
+	Addressing effectiveness, they propose a greedy heuristic that prunes $k$-core via a local search.
+	They evaluate both single-node and multi-node queries.
+	},
+}
+
+
+@inproceedings{cui2014local,
+	series = {SIGMOD/PODS'14},
+	title = {Local search of communities in large graphs},
+	url = {http://dx.doi.org/10.1145/2588555.2612179},
+	DOI = {10.1145/2588555.2612179},
+	booktitle = {Proceedings of the 2014 ACM SIGMOD International Conference on Management of Data},
+	publisher = {ACM},
+	author = {Cui, Wanyun and Xiao, Yanghua and Wang, Haixun and Wang, Wei},
+	year = {2014},
+	month = {jun},
+	pages = {991–1002},
+	collection = {SIGMOD/PODS'14},
+	tldr = {This paper proposes a local search strategy, which searches in the neighborhood of a vertex to find the best community for the vertex, and shows that, because the minimum degree measure used to evaluate the goodness of a community is not monotonic, designing efficient local search solutions is a very challenging task.},
+	abstract = {Community search is important in social network analysis. For a given vertex in a graph, the goal is to find the best community the vertex belongs to. Intuitively, the best community for a given vertex should be in the vicinity of the vertex. However, existing solutions use global search to find the best community. These algorithms, although straight-forward, are very costly, as all vertices in the graph may need to be visited. In this paper, we propose a local search strategy, which searches in the neighborhood of a vertex to find the best community for the vertex. We show that, because the minimum degree measure used to evaluate the goodness of a community is not monotonic, designing effciient local search solutions is a very challenging task. We present theories and algorithms of local search to address this challenge. The efficiency of our local search strategy is verifeid by extensive experiments on both synthetic networks and a variety of real networks with millions of nodes.},
+	keywords = {commsearch},
+	annotation = {
+		\textbf{05/21/26}: $k$-core community search, with minimum size, with single node queries, $k$ as an argument.
+		Finding small communities is good for runtime.
+	},
+}
+
+
+@article{bagrow2008evaluating,
+	title = {Evaluating local community methods in networks},
+	volume = {2008},
+	ISSN = {1742-5468},
+	url = {http://dx.doi.org/10.1088/1742-5468/2008/05/P05001},
+	DOI = {10.1088/1742-5468/2008/05/p05001},
+	number = {05},
+	journal = {Journal of Statistical Mechanics: Theory and Experiment},
+	publisher = {IOP Publishing},
+	author = {Bagrow, James P},
+	year = {2008},
+	month = {may},
+	pages = {P05001},
+	abstract = {We present a new benchmarking procedure that is unambiguous and specific to local community finding methods, allowing one to compare the accuracy of various methods. We apply this to new and existing algorithms. A simple class of synthetic benchmark networks is also developed, capable of testing properties specific to these local methods.},
+	tldr = {A new benchmarking procedure is presented that is unambiguous and specific to local community finding methods, allowing one to compare the accuracy of various methods and apply this to new and existing algorithms.},
+	keywords = {commsearch},
+	annotation = {
+		\textbf{05/21/26}: I don't like this paper (old, modularity focused).
+		Benchmark graphs: generate a BA($N=512$, $m_0=8$) graph, partition nodes into ground truth communities, and rewire inter-community edges to form $Q \approx 1/2$.
+		Accuracy via NMI.
+		Their alleged take-home message is that stopping rule is more important than agglomeration scheme, and should be the focus of future work.
+	},
+}
+
+
+@inproceedings{lu2022timeoptimal,
+	title = {On Time-optimal (k, p)-core Community Search in Dynamic Graphs},
+	url = {http://dx.doi.org/10.1109/ICDE53745.2022.00109},
+	DOI = {10.1109/icde53745.2022.00109},
+	booktitle = {2022 IEEE 38th International Conference on Data Engineering (ICDE)},
+	publisher = {IEEE},
+	author = {Lu, Zhao and Zhu, Yuanyuan and Zhong, Ming and Yu, Jeffrey Xu},
+	year = {2022},
+	month = {may},
+	pages = {1396–1407},
+	abstract = {Community search aims to find cohesive subgraphs containing certain vertices, attracting increasing interest recently. However, existing cohesive models such as k-core mainly focus on the dense connections inside the community, and neglect the interactions with the vertices outside. In this paper, we study the (k,p) -core community search (KPCS) problem in dynamic graphs, i.e., find the maximal connected subgraph containing a query vertex where each vertex has at least k neighbors and at least p fraction of its neighbors in the subgraph. Such fraction and connectivity constraints bring non-trivial challenges to the online community search in dynamic graphs. Thus, we design a space-efficient $O(m)$ where $m$ is the edge number) index KPForest which can support time-optimal (k,p) -core community search. We also propose novel construction and maintenance algorithms to record and update the (k,p) value and the connectivity information for dynamic graphs correctly and efficiently. Extensive experimental studies on ten real-world datasets show that our index can support community search with two orders of magnitude speedup at a small cost of construction and maintenance compared with the baseline algorithms.},
+	keywords = {commsearch},
+	annotation = {\textbf{05/21/26}: Describes a new notion of $(k, p)$-Core, where it is a $k$-core such that $p$ fraction of its neighbors in the subgraph.
+	\textcolor{blue}{the maximal subgraph (solution to their proposed problem) may not be connected}.
+	They propose an index (using anchored union-find, similar to \textcite{barbieri2015efficient} that supports dynamic updates.
+	\textcolor{blue}{time-optimal} refers to queries, not the index construction.
+	},
+}
+
+
+@inproceedings{jiang2024gnnbased,
+	title = {GNN-Based Persistent K-core Community Search in Temporal Graphs},
+	url = {http://dx.doi.org/10.1109/BigData62323.2024.10825281},
+	DOI = {10.1109/bigdata62323.2024.10825281},
+	booktitle = {2024 IEEE International Conference on Big Data (BigData)},
+	publisher = {IEEE},
+	author = {Jiang, Zongli and Tan, Yirui and Chen, Guoxin and Guo, Fangda and Zhang, Jinli and Bai, Xiaolu},
+	year = {2024},
+	month = {dec},
+	pages = {569–578},
+	abstract = {The goal of community search is to provide effective solutions for real-time, high-quality community searches within large networks. In many practical applications, such as event organization and friend recommendations, discovering various community structures within a network is crucial for users. However, existing community search algorithms rarely address issues within temporal graphs, and those that do often have two main limitations: (1) traditional community search methods become inefficient and experience significant increases in computation time when scaled to large graphs; (2) while GNN-based community search methods for temporal graphs offer generalizability, they often focus solely on community connectivity and lack cohesiveness. Therefore, we propose a new model PK-GCN, based on Graph Neural Networks (GNNs), to identify persistent k-core communities in temporal networks. This model can handle dynamic changes in temporal graphs and identify communities that persist over time. Compared to existing community search methods, our model not only finds communities with tighter structures but also allows for dynamic queries based on user input without needing retraining. Specifically, our model constructs features by integrating k-core information from core decomposition, graph features, and query features, resulting in more expressive node representations. Additionally, we designed a flexible dynamic query mechanism that allows users to input time information to query communities. Experiments on multiple datasets demonstrate that our model outperforms other GNN-based community search algorithms in F1-score.},
+	keywords = {commsearch},
+}
+
+
+@article{zhang2019efficient,
+	title = {Efficient community discovery with user engagement and similarity},
+	volume = {28},
+	ISSN = {0949-877X},
+	url = {http://dx.doi.org/10.1007/s00778-019-00579-4},
+	DOI = {10.1007/s00778-019-00579-4},
+	number = {6},
+	journal = {The VLDB Journal},
+	publisher = {Springer Science and Business Media LLC},
+	author = {Zhang, Fan and Lin, Xuemin and Zhang, Ying and Qin, Lu and Zhang, Wenjie},
+	year = {2019},
+	month = {oct},
+	pages = {987–1012},
+	tldr = {This paper adopts the popular concept of k-core to guarantee the engagement of the users in a group where each vertex in a (k,r)-core connects to at least k other vertices and considers the pairwise similarity among users based on their attributes.},
+	keywords = {commsearch},
+	abstract = {In this paper, we investigate the problem of (k,r)-core which intends to find cohesive subgraphs on social networks considering both user engagement and similarity perspectives. In particular, we adopt the popular concept of k-core to guarantee the engagement of the users (vertices) in a group (subgraph) where each vertex in a (k,r)-core connects to at least k other vertices. Meanwhile, we consider the pairwise similarity among users based on their attributes. Efficient algorithms are proposed to enumerate all maximal (k,r)-cores and find the maximum (k,r)-core, where both problems are shown to be NP-hard. Effective pruning techniques substantially reduce the search space of two algorithms. A novel (k,k')-core based (k,r)-core size upper bound enhances the performance of the maximum (k,r)-core computation. We also devise effective search orders for two algorithms with different search priorities for vertices. Besides, we study the diversified (k,r)-core search problem to find l maximal (k,r)-cores which cover the most vertices in total. These maximal (k,r)-cores are distinctive and informationally rich. An efficient algorithm is proposed with a guaranteed approximation ratio. We design a tight upper bound to prune unpromising partial (k,r)-cores. A new search order is designed to speed up the search. Initial candidates with large size are generated to further enhance the pruning power. Comprehensive experiments on real-life data demonstrate that the maximal (k,r)-cores enable us to find interesting cohesive subgraphs, and performance of three mining algorithms is effectively improved by all the proposed techniques. },
+	annotation = {\textbf{05/21/26}: Propose a new objective, $(k, r)$-core, where $k$ is the coreness and $r$ is a threshold that all nodes within the community must have pairwise similarity at least $r$.
+	NP-Hard. Lots of heuristics. Lots of good examples, too, but very long paper, although mostly well-written (although \textcolor{red}{I am not interested}).
+	},
+}
+
+
+@inbook{gou2023effective,
+	title = {Effective and Efficient Community Search with Graph Embeddings},
+	ISBN = {9781643684376},
+	ISSN = {1879-8314},
+	url = {http://dx.doi.org/10.3233/FAIA230358},
+	DOI = {10.3233/faia230358},
+	booktitle = {ECAI 2023},
+	publisher = {IOS Press},
+	author = {Gou, Xiaoxuan and Xu, Xiaoliang and Wu, Xiangying and Chen, Runhuai and Wang, Yuxiang and Wu, Tianxing and Ke, Xiangyu},
+	year = {2023},
+	month = {Sept},
+	abstract = {. Given a graph G and a query node q , community search (CS) seeks a cohesive subgraph from G that contains q . CS has gained much research interests recently. In the database research community, researchers aim to ﬁnd the most cohesive subgraph satisfying a speciﬁc community model (e.g., k -core or k -truss) via graph traversal. These works obtain good precision, however suffering from the low efﬁciency issue. In the AI research community, a new thought of using the deep learning model to support CS without relying on graph traversal emerges. Supervised end-to-end models using GCN are presented, which perform efﬁciently, but leave a large room for precision improvement. None of them can achieve a good balance be-tween the efﬁciency and effectiveness. This motivates our solution: First, we present an ofﬂine community-injected graph embedding method to preserve the community’s cohesiveness features into the learned node representations. Second, we resort to a proximity graph (PG) built from node representations, to quickly return the community online. Moreover, we develop a self-augmented method based on KL divergence to further optimize node representations. Extensive experiments on seven real-world graphs show our solution’s superiority on effectiveness (at least 39.3\% improvement) and efﬁciency (one to two orders of magnitude faster).},
+	tldr = {This work presents an ofﬂine community-injected graph embedding method to preserve the community’s cohesiveness features into the learned node representations, and develops a self-augmented method based on KL divergence to further optimize node representations.},
+	keywords = {commsearch, reread},
+	annotation = {
+		\textbf{05/21/26}: $k$-core based community search (query sets) via graph convolutional network; requires training; I hate machine learning papers.
+		Sometimes okay, but also cases there get $< 50$\% F1 score with true solution.
+		\textcolor{red}{maximum dataset network size is 60,000}.
+	},
+}
+
+
+@article{gou2025comprehensive,
+	title = {A Comprehensive Survey and Experimental Study of Learning-Based Community Search},
+	volume = {18},
+	ISSN = {2150-8097},
+	url = {http://dx.doi.org/10.14778/3746405.3746419},
+	DOI = {10.14778/3746405.3746419},
+	number = {9},
+	journal = {Proceedings of the VLDB Endowment},
+	publisher = {Association for Computing Machinery (ACM)},
+	author = {Gou, Xiaoxuan and Zheng, Weiguo and Wang, Yuxiang and Xu, Xiaoliang and Yu, Zhiyuan},
+	year = {2025},
+	month = {may},
+	pages = {2941–2954},
+	abstract = { Given a graph $G$ and a query node $q$, the goal of community search (CS) is to find a structurally cohesive subgraph from $G$ that contains $q$.
+ Significant progress has been made in community search using deep learning in recent years. To the best of our knowledge, no existing work has provided a comprehensive review of learning-based community search methods. Additionally, we find that: (1) Existing methods offer diverse definitions or descriptions of communities, which require systematic summarization. (2) The methods rely on distinct metrics for limited community assessment. (3) Overhead evaluations of the methods vary and exhibit certain biases.
+ Therefore, a comprehensive survey and experimental study are essential to achieve four key objectives: designing a unified pipeline, clarifying community definitions, enriching community evaluation, and establishing overhead assessment. In this paper, we first propose a unified pipeline for these methods, highlighting techniques. We categorize community definitions and analyze the relationships between identified communities. Beyond that, we proposed several community metrics to evaluate the communities comprehensively. Moreover, we introduce a more detailed overhead evaluation approach that considers resource consumption during both the training and search phases. Finally, we employ the proposed community evaluation metrics and overhead assessment framework to evaluate and analyze the methods, examine correlations among metrics, and explore the effects of several commonly used techniques.},
+	tldr = {A unified pipeline for learning-based community search methods is proposed, which categorize community definitions and analyze the relationships between identified communities, and several community metrics to evaluate the communities comprehensively are proposed.},
+	keywords = {commsearch, reread},
+}
+
+
+@article{tang2022reliable,
+	title = {Reliable community search in dynamic networks},
+	volume = {15},
+	ISSN = {2150-8097},
+	url = {http://dx.doi.org/10.14778/3551793.3551834},
+	DOI = {10.14778/3551793.3551834},
+	number = {11},
+	journal = {Proceedings of the VLDB Endowment},
+	publisher = {Association for Computing Machinery (ACM)},
+	author = {Tang, Yifu and Li, Jianxin and Haldar, Nur Al Hasan and Guan, Ziyu and Xu, Jiajie and Liu, Chengfei},
+	year = {2022},
+	month = {jul},
+	pages = {2826–2838},
+	abstract = { Searching for local communities is an important research problem that supports advanced data analysis in various complex networks, such as social networks, collaboration networks, cellular networks, etc. The evolution of such networks over time has motivated several recent studies to identify local communities in dynamic networks. However, these studies only utilize the aggregation of disjoint structural information to measure the quality and ignore the reliability of the communities in a continuous time interval. To fill this research gap, we propose a novel $(\theta, k)$-core reliable community (CRC) model in the weighted dynamic networks, and define the problem of most reliable community search that couples the desirable properties of connection strength, cohesive structure continuity, and the maximal member engagement. To solve this problem, we first develop a novel edge filtering based online CRC search algorithm that can effectively filter out the trivial edge information from the networks while searching for a reliable community. Further, we propose an index structure, Weighted Core Forest-Index (WCF-index), and devise an index-based dynamic programming CRC search algorithm, that can prune a large number of insignificant intermediate results and support efficient query processing. Finally, we conduct extensive experiments systematically to demonstrate the efficiency and effectiveness of our proposed algorithms on eight real datasets under various experimental settings. },
+	tldr = {A novel edge filtering based online CRC search algorithm that can effectively filter out the trivial edge information from the networks while searching for a reliable community, and an index structure, Weighted Core Forest-Index (WCF-index), that can prune a large number of insignificant intermediate results and support efficient query processing are proposed.},
+	keywords = {commsearch, reread},
+}
+
+
+@article{sun2022indexbased,
+	title = {Index-Based Intimate-Core Community Search in Large Weighted Graphs},
+	volume = {34},
+	ISSN = {2326-3865},
+	url = {http://dx.doi.org/10.1109/TKDE.2020.3040762},
+	DOI = {10.1109/tkde.2020.3040762},
+	number = {9},
+	journal = {IEEE Transactions on Knowledge and Data Engineering},
+	publisher = {Institute of Electrical and Electronics Engineers (IEEE)},
+	author = {Sun, Longxu and Huang, Xin and Li, Rong-Hua and Choi, Byron and Xu, Jianliang},
+	year = {2022},
+	month = {Sept},
+	pages = {4313–4327},
+	abstract = {Community search that finds query-dependent communities has been studied on various kinds of graphs. As one instance of community search, intimate-core group (community) search over a weighted graph is to find a connected <inline-formula><tex-math notation="LaTeX">$k$</tex-math><alternatives><mml:math><mml:mi>k</mml:mi></mml:math><inline-graphic xlink:href="sun-ieq1-3040762.gif"/></alternatives></inline-formula>-core containing all query nodes with the smallest group weight. However, existing state-of-the-art methods start from the maximal <inline-formula><tex-math notation="LaTeX">$k$</tex-math><alternatives><mml:math><mml:mi>k</mml:mi></mml:math><inline-graphic xlink:href="sun-ieq2-3040762.gif"/></alternatives></inline-formula>-core to refine an answer, which is practically inefficient for large networks. In this paper, we develop an efficient framework, called <underline>l</underline>ocal <underline>e</underline>xploration <underline>k</underline>-core <underline>s</underline>earch (LEKS), to find intimate-core groups in graphs. We propose a small-weighted spanning tree to connect query nodes, and then expand the tree level by level to a connected <inline-formula><tex-math notation="LaTeX">$k$</tex-math><alternatives><mml:math><mml:mi>k</mml:mi></mml:math><inline-graphic xlink:href="sun-ieq3-3040762.gif"/></alternatives></inline-formula>-core, which is finally refined as an intimate-core group. In addition, to support the intimate group search over large weighted graphs, we develop a weighted-core index (WC-index) and two new WC-index-based algorithms for expansion and refinement phases in LEKS. Specifically, we propose a WC-index-based expansion to efficiently find a candidate graph of intimate-core group, leveraging on a two-level expansion of <inline-formula><tex-math notation="LaTeX">$k$</tex-math><alternatives><mml:math><mml:mi>k</mml:mi></mml:math><inline-graphic xlink:href="sun-ieq4-3040762.gif"/></alternatives></inline-formula>-breadth and 1-depth. We propose two graph removal strategies: coarse-grained refinement is designed for large graphs to delete a batch of nodes in a few iterations; fine-grained refinement is designed for small graphs to remove nodes carefully and achieve high-quality answers. Extensive experiments on real-life networks with ground-truth communities validate the effectiveness and efficiency of our proposed methods.},
+	keywords = {commsearch},
+}
+
+
+@inproceedings{chu2020finding,
+	title = {Finding the Best k in Core Decomposition: A Time and Space Optimal Solution},
+	url = {http://dx.doi.org/10.1109/ICDE48307.2020.00065},
+	DOI = {10.1109/icde48307.2020.00065},
+	booktitle = {2020 IEEE 36th International Conference on Data Engineering (ICDE)},
+	publisher = {IEEE},
+	author = {Chu, Deming and Zhang, Fan and Lin, Xuemin and Zhang, Wenjie and Zhang, Ying and Xia, Yinglong and Zhang, Chenyi},
+	year = {2020},
+	month = {apr},
+	pages = {685–696},
+	abstract = {The mode of k-core and its hierarchical decomposition have been applied in many areas, such as sociology, the world wide web, and biology. Algorithms on related studies often need an input value of parameter k, while there is no existing solution other than manual selection. In this paper, given a graph and a scoring metric, we aim to efficiently find the best value of k such that the score of the k-core (or k-core set) is the highest. The problem is challenging because there are various community scoring metrics and the computation is costly on large datasets. With the well-designed vertex ordering techniques, we propose time and space optimal algorithms to compute the best k, which are applicable to most community metrics. The proposed algorithms can compute the score of every k-core (set) and can benefit the solutions to other k-core related problems. Extensive experiments are conducted on 10 real-world networks with size up to billion-scale, which validates both the efficiency of our algorithms and the effectiveness of the resulting k-cores.},
+	keywords = {commsearch},
 }
