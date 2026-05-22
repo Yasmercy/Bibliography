@@ -250,7 +250,7 @@
 	journal = {Proceedings of the VLDB Endowment},
 	year = {2020},
 	publisher = {VLDB Endowment},
-	abstract = {As one of the most representative cohesive subgraph models, k-core model has recently received significant attention in the literature. In this paper, we investigate the problem of the minimum k-core search: given a graph G, an integer k and a set of query vertices $Q = \set{q}$, we aim to find the smallest k-core subgraph containing every query vertex $q \in Q$. It has been shown that this problem is NP-hard with a huge search space, and it is very challenging to find the optimal solution. There are several heuristic algorithms for this problem, but they rely on simple scoring functions and there is no guarantee as to the size of the resulting subgraph, compared with the optimal solution. Our empirical study also indicates that the size of their resulting subgraphs may be large in practice. In this paper, we develop an effective and efficient progressive algorithm, namely PSA, to provide a good trade-of fbetween the quality of the result and the search time. Novel lower and upper bound techniques for the minimum k-core search are designed. Our extensive experiments on 12 real-life graphs demonstrate the effectiveness and efficiency of the new techniques. },
+	abstract = {As one of the most representative cohesive subgraph models, k-core model has recently received significant attention in the literature. In this paper, we investigate the problem of the minimum k-core search: given a graph G, an integer k and a set of query vertices $Q = \set{q}$, we aim to find the smallest k-core subgraph containing every query vertex $q \in Q$. It has been shown that this problem is NP-hard with a huge search space, and it is very challenging to find the optimal solution. There are several heuristic algorithms for this problem, but they rely on simple scoring functions and there is no guarantee as to the size of the resulting subgraph, compared with the optimal solution. Our empirical study also indicates that the size of their resulting subgraphs may be large in practice. In this paper, we develop an effective and efficient progressive algorithm, namely PSA, to provide a good trade-of between the quality of the result and the search time. Novel lower and upper bound techniques for the minimum k-core search are designed. Our extensive experiments on 12 real-life graphs demonstrate the effectiveness and efficiency of the new techniques. },
 	keywords = {commsearch},
 	annotation = {
 	\textbf{05/21/26}: Instead of addressing the theoretically solved \emph{maximum} $k$-core search, this paper focuses on approximating (as is NP-Hard) the smallest community that has the $k$-core property (for $k$ an argument to the method).
@@ -572,4 +572,78 @@
 	pages = {685–696},
 	abstract = {The mode of k-core and its hierarchical decomposition have been applied in many areas, such as sociology, the world wide web, and biology. Algorithms on related studies often need an input value of parameter k, while there is no existing solution other than manual selection. In this paper, given a graph and a scoring metric, we aim to efficiently find the best value of k such that the score of the k-core (or k-core set) is the highest. The problem is challenging because there are various community scoring metrics and the computation is costly on large datasets. With the well-designed vertex ordering techniques, we propose time and space optimal algorithms to compute the best k, which are applicable to most community metrics. The proposed algorithms can compute the score of every k-core (set) and can benefit the solutions to other k-core related problems. Extensive experiments are conducted on 10 real-world networks with size up to billion-scale, which validates both the efficiency of our algorithms and the effectiveness of the resulting k-cores.},
 	keywords = {commsearch},
+}
+
+
+@article{park2024wellconnectedness,
+	title = {Well-connectedness and community detection},
+	volume = {1},
+	ISSN = {2837-8830},
+	url = {http://dx.doi.org/10.1371/journal.pcsy.0000009},
+	DOI = {10.1371/journal.pcsy.0000009},
+	number = {3},
+	journal = {PLOS Complex Systems},
+	publisher = {Public Library of Science (PLoS)},
+	author = {Park, Minhyuk and Tabatabaee, Yasamin and Ramavarapu, Vikram and Liu, Baqiao and Pailodi, Vidya Kamath and Ramachandran, Rajiv and Korobskiy, Dmitriy and Ayres, Fabio and Chacko, George and Warnow, Tandy},
+	editor = {Albert, Réka},
+	year = {2024},
+	month = {nov},
+	pages = {e0000009},
+	abstract = {Community detection methods help reveal the meso-scale structure of complex networks. Integral to detecting communities is the expectation that communities in a network are edge-dense and “well-connected”. Surprisingly, we find that five different community detection methods–the Leiden algorithm optimizing the Constant Potts Model, the Leiden algorithm optimizing modularity, Infomap, Markov Cluster (MCL), and Iterative k-core (IKC)–identify communities that fail even a mild requirement for well-connectedness. To address this issue, we have developed the Connectivity Modifier (CM), which iteratively removes small edge cuts and re-clusters until communities are well-connected according to a user-specified criterion. We tested CM on real-world networks ranging in size from approximately 35,000 to 75,000,000 nodes. Post-processing of the output of community detection methods by CM resulted in a reduction in node coverage. Results on synthetic networks show that the CM algorithm generally maintains or improves accuracy in recovering true communities. This study underscores the importance of network clusterability–the fraction of a network that exhibits community structure–and the need for more models of community structure where networks contain nodes that are not assigned to communities. In summary, we address well-connectedness as an important aspect of clustering and present a scalable open-source tool for well-connected clusters.},
+	tldr = {The Connectivity Modifier (CM), which iteratively removes small edge cuts and re-clusters until communities are well-connected according to a user-specified criterion, is developed and presented as a scalable open-source tool for well-connected clusters.},
+	keywords = {commdetect},
+	annotation = {
+		\textbf{05/22/26}: Recall the characterization of communities as dense, cohesive, and separated subsets of the network.
+		Recall the findings of \textcite{fortunato2007resolution}, which recommend reclustering each module recursively.
+		This paper evaluates a meta-clustering algorithm (CM) that, given a base clustering algorithm, recursively reclusters the modules using the base clustering algorithm, repeating until the stopping rule of ``well-connectedness'', and minimum size.
+		Here, well-connectedness means that the minimum cut of a module of size $n$ is at least $f(n)$, where they recommend $\log_b(n)$ for its stricter requirement for small module than on large modules.
+		They evaluate statistics on some empirical networks, mostly arguing that while they reduce the quality of the objective, the guarantee of connectivity is important.
+		They also evaluate accuracy on synthetic networks (LFR, ER), but I don't quite understand this part yet.
+	},
+}
+
+
+@article{jones2021community,
+	title = {Community Cores: Removing Size Bias from Community Detection},
+	volume = {10},
+	ISSN = {2162-3449},
+	url = {http://dx.doi.org/10.1609/icwsm.v10i1.14780},
+	DOI = {10.1609/icwsm.v10i1.14780},
+	number = {1},
+	journal = {Proceedings of the International AAAI Conference on Web and Social Media},
+	publisher = {Association for the Advancement of Artificial Intelligence (AAAI)},
+	author = {Jones, Isaac and Wang, Ran and Han, Jiawei and Liu, Huan},
+	year = {2021},
+	month = {aug},
+	pages = {603–606},
+	abstract = { Community discovery in social networks has received a significant amount of attention in the social media research community. The techniques developed by the community have become quite adept at identifying the large communities in a network, but often neglect smaller communities. Evaluation techniques also show this bias, as the resolution limit problem in modularity indicates. Small communities, however, account for a higher proportion of a social network’s community membership and reveal important information about the members of these communities. In this work, we introduce a re-weighting method to improve both the over all performance of community detection algorithms and performance on small community detection. },
+	tldr = {This work uses a re-weighting method to improve both the over- all performance of community detection algorithms and performance on small community detection.},
+	keywords = {commdetect},
+	annotation = {
+		\textbf{05/22/26}: This paper discusses an edge-reweighting scheme that addresses the resolution limit, given by $C - $ edge\_betweenness.
+		Then, they run Infomap, label-propagation, and Louvain on LFR networks, computing accuracy via generalized NMI (with overlapping communities).
+		Using NMI is okay-ish since they want smaller communities.
+		In general, results are not very strong, but does seem to often be beneficial (though random reweighting seems to do more-or-less the same thing)?
+		Short paper; FastEnsemble \parencite{tabatabaee2025fastensemble} is probably better.
+	},
+}
+
+
+@article{tabatabaee2025fastensemble,
+	title = {FastEnsemble: Scalable ensemble clustering on large networks},
+	volume = {2},
+	ISSN = {2837-8830},
+	url = {http://dx.doi.org/10.1371/journal.pcsy.0000069},
+	DOI = {10.1371/journal.pcsy.0000069},
+	number = {10},
+	journal = {PLOS Complex Systems},
+	publisher = {Public Library of Science (PLoS)},
+	author = {Tabatabaee, Yasamin and Wedell, Eleanor and Park, Minhyuk and Warnow, Tandy},
+	editor = {Braun, Tobias},
+	year = {2025},
+	month = {oct},
+	pages = {e0000069},
+	abstract = {Many community detection algorithms are inherently stochastic, leading to variations in their output depending on input parameters and random seeds. This variability makes the results of a single run of these algorithms less reliable. Moreover, different clustering algorithms, optimization criteria (e.g., modularity and the Constant Potts model), and resolution values can result in substantially different partitions on the same network. Consensus clustering methods, such as Ensemble Clustering for Graphs (ECG) and FastConsensus, have been proposed to reduce the instability of non-deterministic algorithms and improve their accuracy by combining a set of partitions resulting from multiple runs of a clustering algorithm. In Complex Networks and their Applications 2024, we introduced FastEnsemble, a new consensus clustering method; here we present a more extensive evaluation of this method. Our results on both real-world and synthetic networks show that FastEnsemble produces more accurate clusterings than two other consensus clustering methods, ECG and FastConsensus, for many model conditions. Furthermore, FastEnsemble is fast enough to be used on networks with more than 3 million nodes, and so improves on the speed and scalability of FastConsensus. Finally, we showcase the utility of consensus clustering methods in mitigating the effect of resolution limit and clustering networks that are only partially covered by communities.},
+	tldr = {FastEnsemble is fast enough to be used on networks with more than 3 million nodes, and so improves on the speed and scalability of FastConsensus, and the utility of consensus clustering methods in mitigating the effect of resolution limit and clustering networks that are only partially covered by communities is showcased.},
+	keywords = {commdetect, reread}
 }
