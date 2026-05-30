@@ -496,7 +496,7 @@
 	publisher = {IOS Press},
 	author = {Gou, Xiaoxuan and Xu, Xiaoliang and Wu, Xiangying and Chen, Runhuai and Wang, Yuxiang and Wu, Tianxing and Ke, Xiangyu},
 	year = {2023},
-	month = Sept,
+	month = sep,
 	abstract = {Given a graph G and a query node q , community search (CS) seeks a cohesive subgraph from G that contains q . CS has gained much research interests recently. In the database research community, researchers aim to find the most cohesive subgraph satisfying a specific community model (e.g., k -core or k -truss) via graph traversal. These works obtain good precision, however suffering from the low efficiency issue. In the AI research community, a new thought of using the deep learning model to support CS without relying on graph traversal emerges. Supervised end-to-end models using GCN are presented, which perform efficiently, but leave a large room for precision improvement. None of them can achieve a good balance be-tween the efficiency and effectiveness. This motivates our solution: First, we present an offline community-injected graph embedding method to preserve the community's cohesiveness features into the learned node representations. Second, we resort to a proximity graph (PG) built from node representations, to quickly return the community online. Moreover, we develop a self-augmented method based on KL divergence to further optimize node representations. Extensive experiments on seven real-world graphs show our solution's superiority on effectiveness (at least 39.3\% improvement) and efficiency (one to two orders of magnitude faster).},
 	tldr = {This work presents an offline community-injected graph embedding method to preserve the community's cohesiveness features into the learned node representations, and develops a self-augmented method based on KL divergence to further optimize node representations.},
 	keywords = {commsearch, reread},
@@ -559,7 +559,7 @@
 	publisher = {Institute of Electrical and Electronics Engineers (IEEE)},
 	author = {Sun, Longxu and Huang, Xin and Li, Rong-Hua and Choi, Byron and Xu, Jianliang},
 	year = {2022},
-	month = Sept,
+	month = sep,
 	pages = {4313-4327},
 	abstract = {Community search that finds query-dependent communities has been studied on various kinds of graphs. As one instance of community search, intimate-core group (community) search over a weighted graph is to find a connected $k$-core containing all query nodes with the smallest group weight. However, existing state-of-the-art methods start from the maximal $k$-core to refine an answer, which is practically inefficient for large networks. In this paper, we develop an efficient framework, called local exploration k-core search (LEKS), to find intimate-core groups in graphs. We propose a small-weighted spanning tree to connect query nodes, and then expand the tree level by level to a connected $k$-core, which is finally refined as an intimate-core group. In addition, to support the intimate group search over large weighted graphs, we develop a weighted-core index (WC-index) and two new WC-index-based algorithms for expansion and refinement phases in LEKS. Specifically, we propose a WC-index-based expansion to efficiently find a candidate graph of intimate-core group, leveraging on a two-level expansion of $k$-breadth and 1-depth. We propose two graph removal strategies: coarse-grained refinement is designed for large graphs to delete a batch of nodes in a few iterations; fine-grained refinement is designed for small graphs to remove nodes carefully and achieve high-quality answers. Extensive experiments on real-life networks with ground-truth communities validate the effectiveness and efficiency of our proposed methods.},
 	keywords = {commsearch},
@@ -749,7 +749,7 @@
 
 
 @article{malvestio2020interplay,
-	title = {Interplay between $k$-core and community structure in complex networks},
+	title = {Interplay between k-core and community structure in complex networks},
 	volume = {10},
 	ISSN = {2045-2322},
 	url = {http://dx.doi.org/10.1038/s41598-020-71426-8},
@@ -759,7 +759,7 @@
 	publisher = {Springer Science and Business Media LLC},
 	author = {Malvestio, Irene and Cardillo, Alessio and Masuda, Naoki},
 	year = {2020},
-	month = Sept,
+	month = sep,
 	abstract = {The organisation of a network in a maximal set of nodes having at least k neighbours within the set, known as $k$-core decomposition, has been used for studying various phenomena. It has been shown that nodes in the innermost $k$-shells play a crucial role in contagion processes, emergence of consensus, and resilience of the system. It is known that the $k$-core decomposition of many empirical networks cannot be explained by the degree of each node alone, or equivalently, random graph models that preserve the degree of each node (i.e., configuration model). Here we study the $k$-core decomposition of some empirical networks as well as that of some randomised counterparts, and examine the extent to which the $k$-shell structure of the networks can be accounted for by the community structure. We find that preserving the community structure in the randomisation process is crucial for generating networks whose $k$-core decomposition is close to the empirical one. We also highlight the existence, in some networks, of a concentration of the nodes in the innermost $k$-shells into a small number of communities.},
 	tldr = {It is found that preserving the community structure in the randomisation process is crucial for generating networks whose k-core decomposition cannot be explained by the degree of each node alone, or equivalently, random graph models that preserve the degreeof each node.},
 	annotation = {
