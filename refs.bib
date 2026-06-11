@@ -1091,7 +1091,7 @@
 }
 
 
-@misc{ovelgonne2013ensemble,
+@article{ovelgonne2013ensemble,
 	title = {An ensemble learning strategy for graph clustering},
 	ISBN = {9780821898697},
 	ISSN = {1098-3627},
@@ -1105,9 +1105,35 @@
 	keywords = {commdetect},
 	abstract = {This paper is on a graph clustering scheme inspired by ensemble learning. In short, the idea of ensemble learning is to learn several weak classifiers and use these weak classifiers to determine a strong classifier. In this contribution, we use the generic procedure of ensemble learning and determine several weak graph clusterings (with respect to the objective function). From the partition given by the maximal overlap of these clusterings (the cluster cores), we continue the search for a strong clustering. We demonstrate the performance of this scheme by using it to maximize the modularity of a graph clustering. We show, that the quality of the initial weak clusterings is of minor importance for the quality of the final result of the scheme if we iterate the process of restarting from maximal overlaps. },
 	annotation = {
-		\textbf{06/09/26}: This paper proposes CGGC (Core Groups Graph Cluster), a new ensemble method for clustering.
+		\textbf{06/10/26}: This paper proposes CGGC (Core Groups Graph Cluster), a new ensemble method for clustering.
 		Using a set of weak learners, they find core groups, i.e. vertices that are assigned to co-clustered in all clusterings, cluster a quotiented graph by this relation, and project it backwards (more-or-less another way of consensus).
 		The authors then summarize several pipelines with their scheme.
 		Because they \textcolor{red}{only evaluate modularity}, I don't really care for their results, but they do mention that label prop is worse as a modularity optimizer than their alternatives.
+	},
+}
+
+
+@article{raghavan2007near,
+	title = {Near linear time algorithm to detect community structures in large-scale networks},
+	volume = {76},
+	ISSN = {1550-2376},
+	url = {http://dx.doi.org/10.1103/PhysRevE.76.036106},
+	DOI = {10.1103/physreve.76.036106},
+	number = {3},
+	journal = {Physical Review E},
+	publisher = {American Physical Society (APS)},
+	author = {Raghavan, Usha Nandini and Albert, Reka and Kumara, Soundar},
+	year = {2007},
+	month = sep,
+	abstract = {Community detection and analysis is an important methodology for understanding the organization of various real-world networks and has applications in problems as diverse as consensus formation in social communities or the identification of functional modules in biochemical networks. Currently used algorithms that identify the community structures in large-scale real-world networks require a priori information such as the number and sizes of communities or are computationally expensive. In this paper we investigate a simple label propagation algorithm that uses the network structure alone as its guide and requires neither optimization of a predefined objective function nor prior information about the communities. In our algorithm every node is initialized with a unique label and at every step each node adopts the label that most of its neighbors currently have. In this iterative process densely connected groups of nodes form a consensus on a unique label to form communities. We validate the algorithm by applying it to networks whose community structures are known. We also demonstrate that the algorithm takes an almost linear time and hence it is computationally less expensive than what was possible so far.},
+	tldr = {This paper investigates a simple label propagation algorithm that uses the network structure alone as its guide and requires neither optimization of a predefined objective function nor prior information about the communities.},
+	keywords = {commdetect},
+	annotation = {
+		\textbf{06/10/26}: This paper proposes Label Detection, a clustering algorithm that under convergence, guarantees each community is strong, i.e. each node has (not strictly) more neighbors inside the cluster than outside.
+		Starting from a singleton cluster, they iterate the each node (permutationally) and move it to the majority of the neighbors.
+		Pralat, Kaminski, and Theberge's book mentions that this may not converge in a finite number of iterations.
+		This algorithm has high variability and may find many different clusterings, so is recommended to run multiple times.
+		They also show that by using labels that are cartesian products of multiple weak learners, Label Propagation can be used as an ensemble method.
+		As with old papers, their testing is extremely limited (Zachary karate club and US football), so its empirical characteristics are somewhat unknown.
 	}
 }
