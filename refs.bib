@@ -721,7 +721,14 @@
 	tldr = {The well-known conductance metric is adopted to measure the quality of a community and a novel problem of conductance-based community search (CCS), which aims at finding a subgraph with the smallest conductance among all connected subgraphs that contain the query vertex is introduced.},
 	keywords = {commsearch},
 	annotation = {
-		\textbf{05/24/26}: SOTA for scaling community search. Have not read in detail.
+	\textbf{06/12/26}: The related work for expansion based community search is the Local from \textcite{sozio2010communitysearch} and \textcite{cui2014local}, a related work for $k$-truss and modularity, and spectral (random-walk) methods (namely PPR-Nibble).
+		They take the goodness function from the spectral methods (i.e. conductance), but enforce connectivity.
+		Their first algorithm (PPRCS) is the same as PPR-Nibble, but restricted sweeps to connected subsets.
+		They improve the quality of the algorithm in a $4$-phase framework: 1. candidate subgraph (BFS + distance), 2. seed (maximal clique), 3. greedy expansion, and 4. greedy pruning (where greedy means optimizing single-step deltas in the objective function).
+		They repeat 3 and 4 until convergence.
+		On the SNAP networks with ground truth (biggest Friendster), they find 1. SCCS fastest, then PPRCS, 2. only SCCS and truss goodness find the small $\approx 100$ node communities as in ground truth, 3. SCCS best F1-score (disregard this result as empirical networks).
+		They provide software, and a nice comparison of very different goodness functions (albeit accuracy is suspect).
+	\textbf{05/24/26}: SOTA for scaling community search. Have not read in detail.
 	},
 }
 
@@ -1124,7 +1131,7 @@
 	publisher = {American Physical Society (APS)},
 	author = {Raghavan, Usha Nandini and Albert, Reka and Kumara, Soundar},
 	year = {2007},
-	month = sep,
+	month = 9,
 	abstract = {Community detection and analysis is an important methodology for understanding the organization of various real-world networks and has applications in problems as diverse as consensus formation in social communities or the identification of functional modules in biochemical networks. Currently used algorithms that identify the community structures in large-scale real-world networks require a priori information such as the number and sizes of communities or are computationally expensive. In this paper we investigate a simple label propagation algorithm that uses the network structure alone as its guide and requires neither optimization of a predefined objective function nor prior information about the communities. In our algorithm every node is initialized with a unique label and at every step each node adopts the label that most of its neighbors currently have. In this iterative process densely connected groups of nodes form a consensus on a unique label to form communities. We validate the algorithm by applying it to networks whose community structures are known. We also demonstrate that the algorithm takes an almost linear time and hence it is computationally less expensive than what was possible so far.},
 	tldr = {This paper investigates a simple label propagation algorithm that uses the network structure alone as its guide and requires neither optimization of a predefined objective function nor prior information about the communities.},
 	keywords = {commdetect},
@@ -1135,5 +1142,57 @@
 		This algorithm has high variability and may find many different clusterings, so is recommended to run multiple times.
 		They also show that by using labels that are cartesian products of multiple weak learners, Label Propagation can be used as an ensemble method.
 		As with old papers, their testing is extremely limited (Zachary karate club and US football), so its empirical characteristics are somewhat unknown.
+	},
+}
+
+
+@book{kaminski2021mining,
+	title = {Mining complex networks},
+	author = {Kami{\'n}ski, Bogumi{\l} and Pra{\l}at, Pawe{\l} and others},
+	year = {2021},
+	publisher = {Chapman and Hall/CRC},
+}
+
+
+@article{wu2015robust,
+	title = {Robust Local Community Detection: On Free Rider Effect and Its Elimination.},
+	author = {Wu, Yubao and Jin, Ruoming and Li, Jing and Zhang, Xiang},
+	journal = {Proc. VLDB Endow.},
+	volume = {8},
+	number = {7},
+	pages = {798--809},
+	year = {2015},
+	keywords = {commsearch},
+	abstract = {Given a large network, local community detection aims at finding the community that contains a set of query nodes and also maximizes (minimizes) a goodness metric. This problem has recently drawn intense research interest. Various goodness metrics have been proposed. However, most existing metrics tend to include irrelevant subgraphs in the detected local community. We refer to such irrelevant subgraphs as free riders. We systematically study the existing goodness metrics and provide theoretical explanations on why they may cause the free rider effect. We further develop a query biased node weighting scheme to reduce the free rider effect. In particular, each node is weighted by its proximity to the query node. We define a query biased density metric to integrate the edge and node weights. The query biased densest subgraph, which has the largest query biased density, will shift to the neighborhood of the query nodes after node weighting. We then formulate the query biased densest connected subgraph (QDC) problem, study its complexity, and provide efficient algorithms to solve it. We perform extensive experiments on a variety of real and synthetic networks to evaluate the effectiveness and efficiency of the proposed methods. },
+	annotation = {
+		\textbf{06/12/26}: Similar style to \textcite{traag2011narrow}; theory about designing optimization functions, with a somewhat strange notion that leads to narrow scope of goodness.
+		The formulation of free-rider is not super convincing to me (about sub/super-modularity), but is saying that adding sets that optimize the goodness function independently of the query should not make a better quality community.
+		Seems fine to use if it was adopted like CPM; likely a similar gap between theory and empirical performance.
+	},
+}
+
+
+@article{newman2003mixing,
+	title = {Mixing patterns in networks},
+	volume = {67},
+	ISSN = {1095-3787},
+	url = {http://dx.doi.org/10.1103/PhysRevE.67.026126},
+	DOI = {10.1103/physreve.67.026126},
+	number = {2},
+	journal = {Physical Review E},
+	publisher = {American Physical Society (APS)},
+	author = {Newman, M. E. J.},
+	year = {2003},
+	month = 2,
+	abstract = {We study assortative mixing in networks, the tendency for vertices in networks to be connected to other vertices that are like (or unlike) them in some way. We consider mixing according to discrete characteristics such as language or race in social networks and scalar characteristics such as age. As a special example of the latter we consider mixing according to vertex degree, i.e., according to the number of connections vertices have to other vertices: do gregarious people tend to associate with other gregarious people? We propose a number of measures of assortative mixing appropriate to the various mixing types, and apply them to a variety of real-world networks, showing that assortative mixing is a pervasive phenomenon found in many networks. We also propose several models of assortatively mixed networks, both analytic ones based on generating function methods, and numerical ones based on Monte Carlo graph generation techniques. We use these models to probe the properties of networks as their level of assortativity is varied. In the particular case of mixing by degree, we find strong variation with assortativity in the connectivity of the network and in the resilience of the network to the removal of vertices.},
+	tldr = {This work proposes a number of measures of assortative mixing appropriate to the various mixing types, and applies them to a variety of real-world networks, showing that assortsative mixing is a pervasive phenomenon found in many networks.},
+	annotation = {
+		\textbf{06/12/26}: Assortativity is the tendancy for like-to-like connections (discrete).
+			Studying assortativity naturally leads to formation of communities, as well as characterizing important network structures such as viral spread and network resilience.
+			The main tool is the assortativity coefficient; assign each node a discrete scalar quantity, and let $e_{ij}$ be fraction of edges between cartegory $i$ and $j$.
+			Then, $r$ is the deviation from $\sum_i e_{ii}$ from its null counterpart (i.e. w/ no mixing, using fractional edges), normalized to be within $-1$ and $1$.
+			They study this quantity for many types of networks and demonstrate the relationship to other network characteristics (above).
+			One notable example is that social networks have high assortativity, leading to an increased vulnerability to viral spread compared to the internet, which is more dissortative.
+			Somewhat cool paper -- heavy discussion on the models which I haven't (and don't want to) read in depth.
 	}
 }
