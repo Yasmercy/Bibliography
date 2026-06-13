@@ -1194,5 +1194,44 @@
 			They study this quantity for many types of networks and demonstrate the relationship to other network characteristics (above).
 			One notable example is that social networks have high assortativity, leading to an increased vulnerability to viral spread compared to the internet, which is more dissortative.
 			Somewhat cool paper -- heavy discussion on the models which I haven't (and don't want to) read in depth.
+	},
+}
+
+
+@article{slota2016complex,
+	title = {Complex Network Partitioning Using Label Propagation},
+	volume = {38},
+	ISSN = {1095-7197},
+	url = {http://dx.doi.org/10.1137/15M1026183},
+	DOI = {10.1137/15m1026183},
+	number = {5},
+	journal = {SIAM Journal on Scientific Computing},
+	publisher = {Society for Industrial & Applied Mathematics (SIAM)},
+	author = {Slota, George M. and Madduri, Kamesh and Rajamanickam, Sivasankaran},
+	year = {2016},
+	month = 1,
+	pages = {S620-S645},
+	tldr = {PuLP (partitioning using label propagation), a parallel and memory-efficient graph partitioning method specifically designed to partition low-diameter networks with skewed degree distributions on shared-memory multicore platforms, is presented.},
+	keywords = {commdetect},
+	abstract = {We present {PuLP} (partitioning using label propagation), a parallel and memoryefifcient graph partitioning method specifically designed to partition low-diameter networks with skewed degree distributions on shared-memory multicore platforms. Graph partitioning is an important problem in scientifci computing because it impacts the execution time and energy efficiency of computations on distributed-memory platforms. Partitioning determines the in-memory layout of a graph, which affects locality, intertask load balance, communication time, and overall memory utilization. A novel feature of our PuLP method is that it optimizes for multiple objective metrics simultaneously, while satisfying multiple partitioning constraints. Using our method, we are able to partition a web crawl with billions of edges on a single compute server in under a minute. For a collection of test graphs, we show that PuLP uses up to 7.8x less memory than state-of-the-art partitioners and is 5.0x faster, on average, than alternate approaches (with 16-way parallelism). We also achieve better partitioning quality results for the multiobjective scenario. },
+	annotation = {
+		\textbf{06/12/26}: This is making some very impressive claims for scalability; I have not looked at how they evaluated the output cut (but they claim it is very good).
+		The scaling is very close to linear, especially with memory (16GB for 1.8 billion edge network, where using 64 bits per edge is already 14.5GB).
+		Very parallelizable.
+	},
+}
+
+
+@inproceedings{slota2017partitioning,
+	author = {Slota, George M and Rajamanickam, Sivasankaran and Devine, Karen and Madduri, Kamesh},
+	keywords = {Distributed, Parallel, and Cluster Computing (cs.DC), FOS: Computer and information sciences, FOS: Computer and information sciences},
+	title = {Partitioning Trillion-edge Graphs in Minutes},
+	booktitle = {International Parallel \& Distributed Processing Symposium ({IPDPS})},
+	year      = {2017},
+	keywords = {commdetect},
+	abstract = {We introduce {XtraPuLP}, a new distributedmemory graph partitioner designed to process trillion-edge graphs. {XtraPuLP} is based on the scalable label propagation community detection technique, which has been demonstrated as a viable means to produce high quality partitions with minimal computation time. On a collection of large sparse graphs, we show that {XtraPuLP} partitioning quality is comparable to state-of-the-art partitioning methods. We also demonstrate that {XtraPuLP} can produce partitions of real-world graphs with billion+ vertices in minutes. Further, we show that using {XtraPuLP} partitions for distributed-memory graph analytics leads to significant end-to-end execution time reduction. },
+	annotation = {
+		\textbf{06/12/26}: Title says it all.
+		Note that it was run on BlueWaters, which has a lot of resources (131,072 cores).
 	}
 }
