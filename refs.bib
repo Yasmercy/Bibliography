@@ -321,7 +321,7 @@
 	\textbf{05/21/26}:
 		This is the original paper for community search. The problem is to find the maximium score, connected (\textcolor{blue}{not necessarily the largest size community}).
 		They also often add a distance constraint.
-		Describes the Local and Global search problem, and an exact greedy algorithm that optimizes a small family of objectives.
+		Describes the Global algorithm, and an exact greedy algorithm that optimizes a small family of objectives.
 	},
 }
 
@@ -368,12 +368,26 @@
 	keywords = {commsearch},
 	annotation = {
 	\textbf{05/21/26}: $k$-core community search.
-	Efficient means runtime; local search is desired. Effective means that we want to find small clusters.
+	Efficient means runtime. Effective means that we want to find small clusters.
 	Seems to supercede \textcite{cui2014local}.
 	Addressing efficiency, they propose ShellStruct (which finds maximal $k$-core).
 	Addressing effectiveness, they propose a greedy heuristic that prunes $k$-core via a local search.
 	They evaluate both single-node and multi-node queries.
 	},
+}
+
+
+@article{fang2016effective,
+	title={Effective community search for large attributed graphs},
+	author={Fang, Yixiang and Cheng, CK and Luo, Siqiang and Hu, Jiafeng},
+	journal={Proceedings of the VLDB Endowment},
+	year={2016},
+	publisher={Proceedings of the VLDB Endowment},
+	abstract={Given a graph G and a vertex q ∈G, the community search query returns a subgraph of G that contains vertices related to q. Communities, which are prevalent in attributed graphs such as social networks and knowledge bases, can be used in emerging applications such as product advertisement and setting up of social events. In this paper, we investigate the attributed community query (or ACQ), which returns an attributed community (AC) for an attributed graph. The AC is a subgraph of G, which satisfies both structure cohesiveness (i.e., its vertices are tightly connected) and keyword cohesiveness (i.e., its vertices share common keywords). The AC enables a better understanding of how and why a community is formed (e.g., members of an AC have a common interest in music, because they all have the same keyword “music”). An AC can be “personalized”; for example, an ACQ user may specify that an AC returned should be related to some specific keywords like “research” and “sports”. To enable efficient AC search, we develop the CL-tree structure and three algorithms based on it. We evaluate our solutions on four large graphs, namely Flickr, DBLP, Tencent, and DBpedia. Our results show that ACs are more effective and efficient than existing community retrieval approaches. Moreover, an AC contains more precise and personalized information than that of existing community search and detection methods. },
+	annotation = {
+		\textbf{05/26/26}: Same first author as in the community search survey.
+		Describes a faster way of computing the ShellStruct, and generalizes discussion to attributed graphs.
+	}
 }
 
 
@@ -396,7 +410,7 @@
 	\textbf{05/26/26}: First, they describe heuristics for smallest thresholded $k$-core commuity, and seem to do pretty good here.
 		They run a BestFirstSearch around the query \emph{node}, but early stop whenever we found a $k$-core, where Best has several heuristics.
 		There exists a Best function that leads to optimal solutions (but is NP-Hard to compute).
-		Their work on maximal $k$-core is a bit of sleight-of-hand foolery; to guarantee exact solutions, their only early-stopping rule is a sufficient condition for detecting when the node's coreness is equal to the degeneracy of a graph.
+		They also show maximum coreness $k$-core (instead of threshold) and guarantee exact solutions setting $\gamma \to -\infty$, their only early-stopping rule is a sufficient condition for detecting when the node's coreness is equal to the degeneracy of a graph.
 		They mostly test on DBLP, with $\langle k \rangle \approx 3$, $m$ about a million.
 	\textbf{05/21/26}: $k$-core community search, with minimum size, with single node queries, $k$ as an argument.
 		Finding small communities is good for runtime.
@@ -1094,7 +1108,7 @@
 		\textbf{06/02/26}: A somewhat algorithmic paper on efficient sampling and motifs.
 		Gives a nice way to think about graph isomorphism; seems useful for the triangle counting problem (though more general, I think it is asymptotically optimal).
 		An introduction into the motif significance, but need to read more into it (reminds me a lot about graphons though).
-	}
+	},
 }
 
 
@@ -1215,6 +1229,10 @@
 	keywords = {commdetect},
 	abstract = {We present {PuLP} (partitioning using label propagation), a parallel and memoryefifcient graph partitioning method specifically designed to partition low-diameter networks with skewed degree distributions on shared-memory multicore platforms. Graph partitioning is an important problem in scientifci computing because it impacts the execution time and energy efficiency of computations on distributed-memory platforms. Partitioning determines the in-memory layout of a graph, which affects locality, intertask load balance, communication time, and overall memory utilization. A novel feature of our PuLP method is that it optimizes for multiple objective metrics simultaneously, while satisfying multiple partitioning constraints. Using our method, we are able to partition a web crawl with billions of edges on a single compute server in under a minute. For a collection of test graphs, we show that PuLP uses up to 7.8x less memory than state-of-the-art partitioners and is 5.0x faster, on average, than alternate approaches (with 16-way parallelism). We also achieve better partitioning quality results for the multiobjective scenario. },
 	annotation = {
+		\textbf{06/13/26}: PuLP takes as input the number of sets to partition into $p$.
+			It performs a multi-objective multi-constrained optimization, with constraints of 1. vertex balance (within a factor of $\epsilon$) of true balance (default 10\%), and 2. edge balance (factor of $\eta$, default $+\infty$ (i.e. no constraint)).
+			It optimizes for the total number of cut edges, and secondarily the maximum boundary size of a cluster.
+			Good strong scaling with the number of cores.
 		\textbf{06/12/26}: This is making some very impressive claims for scalability; I have not looked at how they evaluated the output cut (but they claim it is very good).
 		The scaling is very close to linear, especially with memory (16GB for 1.8 billion edge network, where using 64 bits per edge is already 14.5GB).
 		Very parallelizable.
@@ -1222,16 +1240,206 @@
 }
 
 
-@inproceedings{slota2017partitioning,
-	author = {Slota, George M and Rajamanickam, Sivasankaran and Devine, Karen and Madduri, Kamesh},
-	keywords = {Distributed, Parallel, and Cluster Computing (cs.DC), FOS: Computer and information sciences, FOS: Computer and information sciences},
-	title = {Partitioning Trillion-edge Graphs in Minutes},
-	booktitle = {International Parallel \& Distributed Processing Symposium ({IPDPS})},
-	year      = {2017},
-	keywords = {commdetect},
-	abstract = {We introduce {XtraPuLP}, a new distributedmemory graph partitioner designed to process trillion-edge graphs. {XtraPuLP} is based on the scalable label propagation community detection technique, which has been demonstrated as a viable means to produce high quality partitions with minimal computation time. On a collection of large sparse graphs, we show that {XtraPuLP} partitioning quality is comparable to state-of-the-art partitioning methods. We also demonstrate that {XtraPuLP} can produce partitions of real-world graphs with billion+ vertices in minutes. Further, we show that using {XtraPuLP} partitions for distributed-memory graph analytics leads to significant end-to-end execution time reduction. },
+@inproceedings{shun2015smaller,
+	title = {Smaller and Faster: Parallel Processing of Compressed Graphs with Ligra+},
+	url = {http://dx.doi.org/10.1109/DCC.2015.8},
+	DOI = {10.1109/dcc.2015.8},
+	booktitle = {2015 Data Compression Conference},
+	publisher = {IEEE},
+	author = {Shun, Julian and Dhulipala, Laxman and Blelloch, Guy E.},
+	year = {2015},
+	month = 4,
+	pages = {403-412},
+	abstract = {We study compression techniques for parallel in-memory graph algorithms, and show that we can achieve reduced space usage while obtaining competitive or improved performance compared to running the algorithms on uncompressed graphs. We integrate the compression techniques into Ligra, a recent shared-memory graph processing system. This system, which we call Ligra+, is able to represent graphs using about half of the space for the uncompressed graphs on average. Furthermore, Ligra+ is slightly faster than Ligra on average on a 40-core machine with hyper-threading. Our experimental study shows that Ligra+ is able to process graphs using less memory, while performing as well as or faster than Ligra. },
 	annotation = {
-		\textbf{06/12/26}: Title says it all.
-		Note that it was run on BlueWaters, which has a lot of resources (131,072 cores).
+		\textbf{06/23/26}: A nice discussion about compressed in-memory representations of directed graphs.
+			The authors show how they are able to halve the memory footprint using run-length encoded adjacencies, by a) storing differences, and b) grouping same-size integers into smaller byte-aligned blocks.
+			They get better compression than continue-bits byte-codes and nibble-codes (the alternatives), and faster parallel decoding.
+			In fact, they sometimes get a $2 \times$ improvements, depending on the application, and this speedup is more significant on the largest high-degree graphs.
+			Moreover, they reduce the memory footprint by a lot.
+			Good incremental improvements paper -- I see no reason why not everyone should adopt it (except perhaps random access into the adjacencies is a bit more annoying, or that requires a presumable slow encoding process).
+	},
+}
+
+
+@article{traag2023large,
+	title = {Large network community detection by fast label propagation},
+	volume = {13},
+	ISSN = {2045-2322},
+	url = {http://dx.doi.org/10.1038/s41598-023-29610-z},
+	DOI = {10.1038/s41598-023-29610-z},
+	number = {1},
+	journal = {Scientific Reports},
+	publisher = {Springer Science and Business Media LLC},
+	author = {Traag, Vincent A. and Subelj, Lovro},
+	year = {2023},
+	month = 2,
+	abstract = {Many networks exhibit some community structure. There exists a wide variety of approaches to detect communities in networks, each offering different interpretations and associated algorithms. For large networks, there is the additional requirement of speed. In this context, the so-called label propagation algorithm (LPA) was proposed, which runs in near-linear time. In partitions uncovered by LPA, each node is ensured to have most links to its assigned community. We here propose a fast variant of LPA (FLPA) that is based on processing a queue of nodes whose neighbourhood recently changed. We test FLPA exhaustively on benchmark networks and empirical networks, finding that it can run up to 700 times faster than LPA. In partitions found by FLPA, we prove that each node is again guaranteed to have most links to its assigned community. Our results show that FLPA is generally preferable to LPA.},
+	tldr = {This work proposes a fast variant of LPA (FLPA) that is based on processing a queue of nodes whose neighbourhood recently changed and proves that each node is again guaranteed to have most links to its assigned community.},
+	keywords = {commdetect},
+	annotation = {
+		\textbf{06/23/26}: These people take inspiration from Louvain and try to improve label propagation.
+			They have discussion that correctness is only measured by the theoretical guarantee, i.e. that it is maximal, which their optimizations have.
+			They describe the retention algorithm (i.e. tiebreaking prefers the current label), and the \textcite{raghavan2007near} baseline as comparisons with the fast algorithm (FLPA).
+			All variants are roughly the same output (but with minor differences in community sizes: retention $<$ FLPA $<$ LPA), but FLPA fastest.
+			Alright paper; not many new ideas.
+			They use normalized variational information as accuracy, which is peculiar.
+	},
+}
+
+
+@article{goswami2024survey,
+	title = {A survey on overlapping community detection: label propagation},
+	volume = {84},
+	ISSN = {1573-7721},
+	url = {http://dx.doi.org/10.1007/s11042-024-20485-4},
+	DOI = {10.1007/s11042-024-20485-4},
+	number = {27},
+	journal = {Multimedia Tools and Applications},
+	publisher = {Springer Science and Business Media LLC},
+	author = {Goswami, Shivani and Singh, Anil Kumar},
+	year = {2024},
+	month = 12,
+	pages = {32563-32592},
+	tldr = {A comprehensive review of Label Propagation Algorithm advances from 2008 to 2023 is presented in this study, showing that although each alternative improves the solution's effectiveness or simplifies computation with sufficient efficiency, no one version is uniformly preferable.},
+	abstract = {Overlapping community discovery in large networks is an essential issue in graph theory and network research, since nodes might belong to many communities. Label propagation algorithms (LPA) have received a lot of interest since they are simple and scalable. This study investigates the use of label propagation in overlapping community identification, givingacomprehensiveevaluationofrelevantmethodologiesandimprovements.Weexamine LPA's merits and limitations, emphasizing how it captures overlapping patterns in largescale networks without needing previous knowledge. We also address standard assessment measures like NMI, F1-score, and modularity, stressing their use in evaluating the quality of identified communities. Class imbalance, graph sparsity, and the necessity for adaptive label propagation schemes are all addressed, as well as future research goals. This include creating hybrid models, enhancing management of unbalanced classes, and investigating transdisciplinary applications in areas like as social networks, biology, and cybersecurity. This survey seeks to give a thorough knowledge of label propagation approaches for detecting overlapping communities, as well as useful insights. This comprehensive review of Label Propagation Algorithm (LPA) advances from 2008 to 2023 is presented in this study.We investigate LPA variations in these studies. Our survey show that although each alternative improves the solution's effectiveness or simplifeis computation with sufficient efficiency, no one version is uniformly preferable. },
+	keywords = {commdetect},
+	annotation = {
+		\textbf{06/23/26}: Label propagation is so simple that it is has so many variants.
+			This paper is a good introduction to overlapping clusters, which I haven't seen before, but seems quite natural.
+			Survey.
+	},
+}
+
+
+@article{garza2019community,
+	title = {Community detection with the Label Propagation Algorithm: A survey},
+	volume = {534},
+	ISSN = {0378-4371},
+	url = {http://dx.doi.org/10.1016/j.physa.2019.122058},
+	DOI = {10.1016/j.physa.2019.122058},
+	journal = {Physica A: Statistical Mechanics and its Applications},
+	publisher = {Elsevier BV},
+	author = {Garza, Sara E. and Schaeffer, Satu Elisa},
+	year = {2019},
+	month = 11,
+	pages = {122058},
+	abstract = {Abstract Community detection aims at discovering the structure, behavior, dynamics, and organization of a complex network by finding cohesive groups where nodes (entities) are, in some sense, more similar within the group and groups are in some fashion separated from the other groups. The Label Propagation Algorithm (LPA), which mimics epidemic contagion by spreading labels, is a popular algorithm for this task. Its variants (enhancements, extensions, combinations) seek to improve or to adapt it while preserving the advantages of the original formulation. This survey gathers, classifies, and summarizes LPA-related advances from 2007 to mid 2019. We also experiment with combinations of numerous LPA "building blocks" on two types of small synthetic networks; essentially all of the 13,834 resulting LPA variants have their niche in terms of either higher solution quality or lower computational load with acceptable quality, but none is universally superior.},
+	tldr = {This survey gathers, classifies, and summarizes LPA-related advances from 2007 to mid 2019, and experiments with combinations of numerous LPA "building blocks" on two types of small synthetic networks.},
+	keywords = {commdetect},
+	annotation = {
+		\textbf{06/23/26}: Label propagation is so simple that it is has so many variants.
+			This paper summarizes the variants with: $4$ initialization procedures, $3$ stopping conditions, $2$ synchronous, $4$ ordering, $3$ influence measures, preference, ...
+			They document the monster community effect, i.e. that putting everything into one community is a solution for many cases, which explains what I've been seeing experimentally.
+			Quite well written and shoud look back to whenever there is an effect in label propagation that is strange (because someone else would have documented solutions).
+	},
+}
+
+
+@article{kamiński2024modularity,
+	title = {Modularity based community detection in hypergraphs},
+	volume = {12},
+	ISSN = {2051-1329},
+	url = {http://dx.doi.org/10.1093/comnet/cnae041},
+	DOI = {10.1093/comnet/cnae041},
+	number = {5},
+	journal = {Journal of Complex Networks},
+	publisher = {Oxford University Press (OUP)},
+	author = {Kaminski, Bogumil and Misiorek, Pawel and Pralat, Pawel and Theberge, Francois},
+	year = {2024},
+	month = 9,
+	keywords = {commdetect},
+	annotation = {
+		\textbf{06/25/26}: This paper is described quite thoroughly in their textbook.
+		They describe a wonderful development of a family of modularity functions, and also a property, which is that for these larger cardinality edges, multiple moves must be made in order to get edge contribution.
+		They solve this cold-start problem for Louvain by having a schedule, to superimpose traditional modularity with their hypergraph modularity.
+		Good results; I wonder what happens if they allow multiple node moves at a time; say look at $d$-uniform slices and then move $d$ nodes.
+		Very well written; this is scientific method 101.
+	},
+}
+
+
+@inbook{brautbar2011clustering,
+	title = {A Clustering Coefficient Network Formation Game},
+	ISBN = {9783642248290},
+	ISSN = {1611-3349},
+	url = {http://dx.doi.org/10.1007/978-3-642-24829-0_21},
+	DOI = {10.1007/978-3-642-24829-0_21},
+	booktitle = {Algorithmic Game Theory},
+	publisher = {Springer Berlin Heidelberg},
+	author = {Brautbar, Michael and Kearns, Michael},
+	year = {2011},
+	pages = {224-235},
+	abstract = {Social and other networks have been shown empirically to exhibit high edge clustering--that is, the density of local neighborhoods, as measured by the clustering coefficient, is often much larger than the overall edge density of the network. In social networks, a desire for tightknit circles of friendships -- the colloquial "social clique" -- is often cited as the primary driver of such structure. 
+			We introduce and analyze a new network formation game in which rational players must balance edge purchases with a desire to maximize their own clustering coefficient. Our results include the following: * Construction of a number of specific families of equilibrium networks, including ones showing that equilibria can have rather general binary tree-like structure, including highly asymmetric binary trees. This is in contrast to other network formation games that yield only symmetric equilibrium networks. Our equilibria also include ones with large or small diameter, and ones with wide variance of degrees. * A general characterization of (non-degenerate) equilibrium networks, showing that such networks are always sparse and paid for by lowdegree vertices, whereas high-degree "free riders" always have low utility. * A proof that for edge cost a >= 1/2 the Price of Anarchy grows linearly with the population size n while for edge cost a less than 1/2, the Price of Anarchy of the formation game is bounded by a constant depending only on a, and independent of n. Moreover, an explicit upper bound is constructed when the edge cost is a "simple" rational (small numerator) less than 1/2. * A proof that for edge cost a less than 1/2 the average vertex clustering coefficient grows at least as fast as a function depending only on a, while the overall edge density goes to zero at a rate inversely proportional to the number of vertices in the network. * Results establishing the intractability of even weakly approximating best response computations. 
+			Several of our results hold even for weaker notions of equilibrium, such as those based on link stability.},
+	tldr = {A new network formation game in which rational players must balance edge purchases with a desire to maximize their own clustering coefficient is introduced, and several of the results hold even for weaker notions of equilibrium, such as those based on link stability.},
+	annotation = {
+		\textbf{06/30/26}: Tai's presentation made me enjoy this paper a little bit more.
+		They observe that high local clustering coefficient is observed in networks, so their model ask the counterfactual of happens if this becomes a utility function.
+		I disliked the one-shot nature, but realize that the nash equilibrium naturally encompasses a stable point of a multi-round process.
+		The theorems are stated very elegantly in terms of trends (their ratio leads to victims, where high degree nodes get low value, and unilaterally cannot fix).
+		Moreover, they observe a clear cutoff of a cost of $\alpha = 1/2$ for the price of anarchy, where below $1/2$ no isolated nodes (unless degenerate) means that a bounded price.
+		Giving it a lot more credit for its theory and exposition -- 8.5/10 (though still skeptical about its usefulness as a model).
+		\textbf{06/29/26}: Most of the graph models I've looked at have been probablistic models according to some process.
+		This is a game theoretic alternative, where we have agents (nodes) that buy edges unilaterally in one-shot.
+		They strategies to maximize their utility, in this case, the clustering coefficient.
+		This alternative seems to be stronger on the explanation side -- they attach specific motivations and objectives to the agents.
+		In particular, the goal of such models is to characterize the equilibria states (the networks that could feasibly be generated), showing a certain richness in the model.
+		Great for pure mathematics --- as a useful model, I am doubtful.
+	},
+}
+
+
+@article{zhang2023review,
+	title = {Review of single-cell RNA-seq data clustering for cell-type identification and characterization},
+	volume = {29},
+	ISSN = {1469-9001},
+	url = {http://dx.doi.org/10.1261/rna.078965.121},
+	DOI = {10.1261/rna.078965.121},
+	number = {5},
+	journal = {RNA},
+	publisher = {Cold Spring Harbor Laboratory},
+	author = {Zhang, Shixiong and Li, Xiangtao and Lin, Jiecong and Lin, Qiuzhen and Wong, Ka-Chun},
+	year = {2023},
+	month = 2,
+	pages = {517-530},
+	abstract = {In recent years, the advances in single-cell RNA-seq techniques have enabled us to perform large-scale transcriptomic profiling at single-cell resolution in a high-throughput manner. Unsupervised learning such as data clustering has become the central component to identify and characterize novel cell types and gene expression patterns. In this study, we review the existing single-cell RNA-seq data clustering methods with critical insights into the related advantages and limitations. In addition, we also review the upstream single-cell RNA-seq data processing techniques such as quality control, normalization, and dimension reduction. We conduct performance comparison experiments to evaluate several popular single-cell RNA-seq clustering approaches on simulated and multiple single-cell transcriptomic data sets.},
+	tldr = {This study reviews the existing single-cell RNA-seq data clustering methods with critical insights into the related advantages and limitations, and conducts performance comparison experiments to evaluate several popular single- cellRNA-seq clustering approaches on simulated and multiple single-Cell transcriptomic data sets.},
+	keywords = {commdetect},
+	annotation = {
+		\textbf{06/29/26}: This is a practitioners view of clustering.
+		In general, there is some similarity matrix between nodes (in this case, cells), based upon features (in this case, gene expression profile).
+		A tutorial by Luecken and Theis (2019) is good background.
+		Here, we can examine how data gets cleaned (from raw counts to a graph: data cleaning, sparsification via k-NN), and also how they are used downstream (cell-type identification) with a suitable notion of ground-truth (often human-annotated via marker genes and experiments, or simulated).
+		Normalization always helps.
+		They are able to characterize methods by their ability to find small/large clusters,  runtime, stability, \emph{in-context} (e.g. a small cluster is a rare cell type).
+		Overall, it is not a very detailed paper, showcasing that the pre-processing was more important than the final clustering method, but I think it shows that clustering has a long way to go, and potentially high impact.
+		It could be the same story as optimization, where changing the problem to make it easier is more impactful than finding better optimization methods.
+	},
+}
+
+
+@article{rodriguez2014clustering,
+	title = {Clustering by fast search and find of density peaks},
+	volume = {344},
+	ISSN = {1095-9203},
+	url = {http://dx.doi.org/10.1126/science.1242072},
+	DOI = {10.1126/science.1242072},
+	number = {6191},
+	journal = {Science},
+	publisher = {American Association for the Advancement of Science (AAAS)},
+	author = {Rodriguez, Alex and Laio, Alessandro},
+	year = {2014},
+	month = 6,
+	pages = {1492-1496},
+	tldr = {A method in which the cluster centers are recognized as local density maxima that are far away from any points of higher density, and the algorithm depends only on the relative densities rather than their absolute values.},
+	abstract = {Cluster analysis is aimed at classifying elements into categories on the basis of their similarity. Its applications range from astronomy to bioinformatics, bibliometrics, and pattern recognition. We propose an approach based on the idea that cluster centers are characterized by a higher density than their neighbors and by a relatively large distance from points with higher densities.This idea forms the basis of a clustering procedure in which the number of clusters arises intuitively, outliers are automatically spotted and excluded from the analysis, and clusters are recognized regardless of their shape and of the dimensionality of the space in which they are embedded. We demonstrate the power of the algorithm on several test cases. },
+	annotation = {
+		\textbf{07/02/26}: This area of clustering points in Euclidean space (via RBF kernels) is traditionally dominated by $k-$ means,medians,metroids.
+		The authors describe a different procedure, using abnormally large densities $\rho_i = \sum_j 1\set{d_{ij} < \tau}$ as cluster centers.
+		I am unsure how this $\tau$ is picked, though the authors note that rather than a signal-to-noise cutoff, it describe an absolute noise of background cutoff, which is good (?).
+		I am unsure how this approach solves the non-spherical cluster problem, as they still assign it to nearest neighbors, though they report it does.
+		Seems OK.
 	}
 }
